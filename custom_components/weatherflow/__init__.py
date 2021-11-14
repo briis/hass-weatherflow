@@ -13,7 +13,7 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 import homeassistant.helpers.device_registry as dr
 
 from pyweatherflowrest import (
@@ -106,13 +106,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     hass.config_entries.async_setup_platforms(entry, WEATHERFLOW_PLATFORMS)
 
-    if not entry.update_listeners:
-        entry.add_update_listener(async_update_options)
-
-    # entry.async_on_unload(entry.add_update_listener(_async_options_updated))
-    # entry.async_on_unload(
-    #     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, weatherflow.req.close())
-    # )
+    entry.async_on_unload(entry.add_update_listener(_async_options_updated))
 
     return True
 
@@ -135,7 +129,7 @@ async def _async_get_or_create_nvr_device_in_registry(
     )
 
 
-async def async_update_options(hass: HomeAssistant, entry: ConfigEntry):
+async def _async_options_updated(hass: HomeAssistant, entry: ConfigEntry):
     """Update options."""
     await hass.config_entries.async_reload(entry.entry_id)
 

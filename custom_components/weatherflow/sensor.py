@@ -18,7 +18,6 @@ from homeassistant.const import (
     TEMP_CELSIUS,
 )
 from homeassistant.core import HomeAssistant
-from pyweatherflowrest.data import ObservationDescription
 
 from .const import (
     DOMAIN,

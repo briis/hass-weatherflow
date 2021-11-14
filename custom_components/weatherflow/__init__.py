@@ -8,7 +8,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_API_TOKEN,
     CONF_ID,
-    EVENT_HOMEASSISTANT_STOP,
+    CONF_SCAN_INTERVAL,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
@@ -26,8 +26,6 @@ from pyweatherflowrest import (
 from pyweatherflowrest.data import StationDescription
 from .const import (
     DOMAIN,
-    CONF_INTERVAL_OBSERVATION,
-    CONF_INTERVAL_FORECAST,
     CONFIG_OPTIONS,
     CONF_STATION_ID,
     DEFAULT_BRAND,
@@ -59,13 +57,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     session = async_create_clientsession(hass)
 
-    weatherflow = WeatherFlowApiClient(
+    weatherflowapi = WeatherFlowApiClient(
         entry.data[CONF_STATION_ID], entry.data[CONF_API_TOKEN], session=session
     )
 
     try:
-        await weatherflow.initialize()
-        station_data: StationDescription = weatherflow.station_data
+        await weatherflowapi.initialize()
+        station_data: StationDescription = weatherflowapi.station_data
 
     except WrongStationID:
         _LOGGER.debug("The Station Id entered is not correct")
@@ -89,11 +87,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         hass,
         _LOGGER,
         name=DOMAIN,
-        update_method=weatherflow.update_observations,
+        update_method=weatherflowapi.update_observations,
         update_interval=timedelta(
-            minutes=entry.options.get(
-                CONF_INTERVAL_OBSERVATION, DEFAULT_OBSERVATION_INTERVAL
-            )
+            minutes=entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_OBSERVATION_INTERVAL)
         ),
     )
     await coordinator.async_refresh()
@@ -102,7 +98,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = {
         "coordinator": coordinator,
-        "weatherflow": weatherflow,
+        "weatherflowapi": weatherflowapi,
         "station_data": station_data,
     }
 
@@ -110,10 +106,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     hass.config_entries.async_setup_platforms(entry, WEATHERFLOW_PLATFORMS)
 
-    entry.async_on_unload(entry.add_update_listener(_async_options_updated))
-    entry.async_on_unload(
-        hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, weatherflow.req.close())
-    )
+    if not entry.update_listeners:
+        entry.add_update_listener(async_update_options)
+
+    # entry.async_on_unload(entry.add_update_listener(_async_options_updated))
+    # entry.async_on_unload(
+    #     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, weatherflow.req.close())
+    # )
 
     return True
 
@@ -136,7 +135,7 @@ async def _async_get_or_create_nvr_device_in_registry(
     )
 
 
-async def _async_options_updated(hass: HomeAssistant, entry: ConfigEntry):
+async def async_update_options(hass: HomeAssistant, entry: ConfigEntry):
     """Update options."""
     await hass.config_entries.async_reload(entry.entry_id)
 
@@ -149,7 +148,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     if unload_ok:
         data = hass.data[DOMAIN][entry.entry_id]
-        await data["weatherflow"].req.close()
+        await data["weatherflowapi"].req.close()
         hass.data[DOMAIN].pop(entry.entry_id)
 
     return unload_ok

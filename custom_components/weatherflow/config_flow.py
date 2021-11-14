@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 
 from homeassistant import config_entries
-from homeassistant.const import CONF_API_TOKEN, CONF_ID
+from homeassistant.const import CONF_API_TOKEN, CONF_ID, CONF_SCAN_INTERVAL
 from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
@@ -86,7 +86,7 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_API_TOKEN: user_input[CONF_API_TOKEN],
             },
             options={
-                CONF_INTERVAL_OBSERVATION: 1,
+                CONF_SCAN_INTERVAL: 1,
                 CONF_INTERVAL_FORECAST: 30,
             },
         )
@@ -122,10 +122,8 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             data_schema=vol.Schema(
                 {
                     vol.Optional(
-                        CONF_INTERVAL_OBSERVATION,
-                        default=self.config_entry.data.get(
-                            CONF_INTERVAL_OBSERVATION, 1
-                        ),
+                        CONF_SCAN_INTERVAL,
+                        default=self.config_entry.data.get(CONF_SCAN_INTERVAL, 1),
                     ): str,
                     vol.Optional(
                         CONF_INTERVAL_FORECAST,

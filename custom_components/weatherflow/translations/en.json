@@ -24,7 +24,7 @@
         "step": {
             "init": {
                 "data": {
-                    "interval_observation": "Interval in minutes between Sensor Updates",
+                    "scan_interval": "Interval in minutes between Sensor Updates",
                     "interval_forecast": "Interval in minutes between Forecast updates"
                 }
             }

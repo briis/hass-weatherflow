@@ -5,6 +5,7 @@ import logging
 from homeassistant import config_entries
 from homeassistant.const import CONF_API_TOKEN, CONF_ID
 from homeassistant.core import callback
+from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
 from pyweatherflowrest import (
     WrongStationID,
@@ -44,8 +45,10 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         errors = {}
 
+        session = async_create_clientsession(self.hass)
+
         weatherflow = WeatherFlowApiClient(
-            user_input[CONF_STATION_ID], user_input[CONF_API_TOKEN]
+            user_input[CONF_STATION_ID], user_input[CONF_API_TOKEN], session=session
         )
 
         try:

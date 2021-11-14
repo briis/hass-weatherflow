@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
@@ -12,6 +13,7 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 import homeassistant.helpers.device_registry as dr
 
 from pyweatherflowrest import (
@@ -21,12 +23,16 @@ from pyweatherflowrest import (
     Invalid,
     WeatherFlowApiClient,
 )
+from pyweatherflowrest.data import StationDescription
 from .const import (
     DOMAIN,
     CONF_INTERVAL_OBSERVATION,
     CONF_INTERVAL_FORECAST,
     CONFIG_OPTIONS,
     CONF_STATION_ID,
+    DEFAULT_BRAND,
+    DEFAULT_OBSERVATION_INTERVAL,
+    WEATHERFLOW_PLATFORMS,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -51,12 +57,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up the WeatherFlow config entries."""
     _async_import_options_from_data_if_missing(hass, entry)
 
+    session = async_create_clientsession(hass)
+
     weatherflow = WeatherFlowApiClient(
-        entry.data[CONF_STATION_ID], entry.data[CONF_API_TOKEN]
+        entry.data[CONF_STATION_ID], entry.data[CONF_API_TOKEN], session=session
     )
 
     try:
         await weatherflow.initialize()
+        station_data: StationDescription = weatherflow.station_data
 
     except WrongStationID:
         _LOGGER.debug("The Station Id entered is not correct")
@@ -70,3 +79,75 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     except BadRequest as notreadyerror:
         _LOGGER.error("An unknown error occurred when retreiving data")
         raise ConfigEntryNotReady from notreadyerror
+
+    if entry.unique_id is None:
+        hass.config_entries.async_update_entry(
+            entry, unique_id=station_data.hub_serial_number
+        )
+
+    coordinator = DataUpdateCoordinator(
+        hass,
+        _LOGGER,
+        name=DOMAIN,
+        update_method=weatherflow.update_observations,
+        update_interval=timedelta(
+            minutes=entry.options.get(
+                CONF_INTERVAL_OBSERVATION, DEFAULT_OBSERVATION_INTERVAL
+            )
+        ),
+    )
+    await coordinator.async_refresh()
+
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = {
+        "coordinator": coordinator,
+        "weatherflow": weatherflow,
+        "station_data": station_data,
+    }
+
+    await _async_get_or_create_nvr_device_in_registry(hass, entry, station_data)
+
+    hass.config_entries.async_setup_platforms(entry, WEATHERFLOW_PLATFORMS)
+
+    entry.async_on_unload(entry.add_update_listener(_async_options_updated))
+    entry.async_on_unload(
+        hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, weatherflow.req.close())
+    )
+
+    return True
+
+
+async def _async_get_or_create_nvr_device_in_registry(
+    hass: HomeAssistant, entry: ConfigEntry, station_data: StationDescription
+) -> None:
+    device_registry = await dr.async_get_registry(hass)
+    _model = "AIR & SKY"
+    if station_data.is_tempest:
+        _model = "Tempest"
+    device_registry.async_get_or_create(
+        config_entry_id=entry.entry_id,
+        connections={(dr.CONNECTION_NETWORK_MAC, station_data.hub_serial_number)},
+        identifiers={(DOMAIN, station_data.hub_serial_number)},
+        manufacturer=DEFAULT_BRAND,
+        name=entry.data[CONF_ID],
+        model=_model,
+        sw_version=station_data.hub_firmware_revision,
+    )
+
+
+async def _async_options_updated(hass: HomeAssistant, entry: ConfigEntry):
+    """Update options."""
+    await hass.config_entries.async_reload(entry.entry_id)
+
+
+async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Unload Unifi Protect config entry."""
+    unload_ok = await hass.config_entries.async_unload_platforms(
+        entry, WEATHERFLOW_PLATFORMS
+    )
+
+    if unload_ok:
+        data = hass.data[DOMAIN][entry.entry_id]
+        await data["weatherflow"].req.close()
+        hass.data[DOMAIN].pop(entry.entry_id)
+
+    return unload_ok

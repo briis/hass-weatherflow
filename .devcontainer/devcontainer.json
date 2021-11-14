@@ -4,7 +4,7 @@
 	"image": "ghcr.io/ludeeus/devcontainer/integration:stable",
 	"context": "..",
 	"appPort": [
-		"9123:8123"
+		"9124:8123"
 	],
 	"postCreateCommand": "container install",
 	"runArgs": [

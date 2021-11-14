@@ -2,4 +2,6 @@
 
 DOMAIN = "weatherflow"
 
+CONF_INTERVAL_OBSERVATION = "interval_observation"
+CONF_INTERVAL_FORECAST = "interval_forecast"
 CONF_STATION_ID = "station_id"

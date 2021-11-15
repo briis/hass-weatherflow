@@ -15,7 +15,9 @@
                 "title": "WeatherFlow",
                 "data": {
                     "station_id": "Station Id",
-                    "api_token": "Personal Api Token"
+                    "api_token": "Personal Api Token",
+                    "forecast_type": "Forecast Type to use",
+                    "add_sensors": "Add the sensors (Deselect if loaded in another instance)"
                 }
             }
         }
@@ -24,7 +26,7 @@
         "step": {
             "init": {
                 "data": {
-                    "scan_interval": "Interval in minutes between Sensor Updates",
+                    "interval_observation": "Interval in minutes between Sensor Updates",
                     "interval_forecast": "Interval in minutes between Forecast updates"
                 }
             }

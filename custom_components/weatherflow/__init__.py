@@ -8,7 +8,8 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_API_TOKEN,
     CONF_ID,
-    CONF_SCAN_INTERVAL,
+    CONF_UNIT_SYSTEM_METRIC,
+    CONF_UNIT_SYSTEM_IMPERIAL,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
@@ -26,6 +27,7 @@ from pyweatherflowrest import (
 from pyweatherflowrest.data import StationDescription, ObservationDescription
 from .const import (
     DOMAIN,
+    CONF_INTERVAL_OBSERVATION,
     CONFIG_OPTIONS,
     CONF_STATION_ID,
     DEFAULT_BRAND,
@@ -56,9 +58,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _async_import_options_from_data_if_missing(hass, entry)
 
     session = async_create_clientsession(hass)
+    unit_system = (
+        CONF_UNIT_SYSTEM_METRIC
+        if hass.config.units.is_metric
+        else CONF_UNIT_SYSTEM_IMPERIAL
+    )
 
     weatherflowapi = WeatherFlowApiClient(
-        entry.data[CONF_STATION_ID], entry.data[CONF_API_TOKEN], session=session
+        entry.data[CONF_STATION_ID],
+        entry.data[CONF_API_TOKEN],
+        units=unit_system,
+        session=session,
     )
 
     try:
@@ -92,13 +102,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         except (BadRequest, Invalid) as err:
             raise UpdateFailed(f"Error while retreiving data: {err}") from err
 
+    unit_descriptions = await weatherflowapi.load_unit_system()
+
     coordinator = DataUpdateCoordinator(
         hass,
         _LOGGER,
         name=DOMAIN,
         update_method=async_update_data,
         update_interval=timedelta(
-            minutes=entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_OBSERVATION_INTERVAL)
+            minutes=entry.options.get(
+                CONF_INTERVAL_OBSERVATION, DEFAULT_OBSERVATION_INTERVAL
+            )
         ),
     )
     await coordinator.async_config_entry_first_refresh()
@@ -109,6 +123,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         "coordinator": coordinator,
         "weatherflowapi": weatherflowapi,
         "station_data": station_data,
+        "unit_descriptions": unit_descriptions,
     }
 
     await _async_get_or_create_nvr_device_in_registry(hass, entry, station_data)

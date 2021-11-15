@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 
 from homeassistant import config_entries
-from homeassistant.const import CONF_API_TOKEN, CONF_ID, CONF_SCAN_INTERVAL
+from homeassistant.const import CONF_API_TOKEN, CONF_ID
 from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
@@ -19,9 +19,13 @@ import voluptuous as vol
 
 from .const import (
     DOMAIN,
+    CONF_ADD_SENSORS,
+    CONF_FORECAST_TYPE,
     CONF_INTERVAL_OBSERVATION,
     CONF_INTERVAL_FORECAST,
     CONF_STATION_ID,
+    FORECAST_TYPE_DAILY,
+    VALID_FORECAST_TYPES,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -84,9 +88,11 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_ID: station_data.name,
                 CONF_STATION_ID: user_input[CONF_STATION_ID],
                 CONF_API_TOKEN: user_input[CONF_API_TOKEN],
+                CONF_FORECAST_TYPE: user_input[CONF_FORECAST_TYPE],
+                CONF_ADD_SENSORS: user_input[CONF_ADD_SENSORS],
             },
             options={
-                CONF_SCAN_INTERVAL: 1,
+                CONF_INTERVAL_OBSERVATION: 1,
                 CONF_INTERVAL_FORECAST: 30,
             },
         )
@@ -99,6 +105,10 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 {
                     vol.Required(CONF_STATION_ID): int,
                     vol.Required(CONF_API_TOKEN): str,
+                    vol.Required(
+                        CONF_FORECAST_TYPE, default=FORECAST_TYPE_DAILY
+                    ): vol.In(VALID_FORECAST_TYPES),
+                    vol.Required(CONF_ADD_SENSORS, default=True): bool,
                 }
             ),
             errors=errors or {},
@@ -122,8 +132,10 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             data_schema=vol.Schema(
                 {
                     vol.Optional(
-                        CONF_SCAN_INTERVAL,
-                        default=self.config_entry.data.get(CONF_SCAN_INTERVAL, 1),
+                        CONF_INTERVAL_OBSERVATION,
+                        default=self.config_entry.data.get(
+                            CONF_INTERVAL_OBSERVATION, 1
+                        ),
                     ): str,
                     vol.Optional(
                         CONF_INTERVAL_FORECAST,

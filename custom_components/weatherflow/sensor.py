@@ -12,6 +12,7 @@ from homeassistant.const import (
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_HUMIDITY,
     DEVICE_CLASS_ILLUMINANCE,
+    DEVICE_CLASS_PRESSURE,
     DEVICE_CLASS_SIGNAL_STRENGTH,
     DEVICE_CLASS_TEMPERATURE,
     DEVICE_CLASS_DATE,
@@ -30,7 +31,7 @@ from .entity import WeatherFlowEntity
 class WeatherFlowRequiredKeysMixin:
     """Mixin for required keys."""
 
-    device_type: set[str]
+    unit_type: str
 
 
 @dataclass
@@ -42,20 +43,33 @@ class WeatherFlowSensorEntityDescription(
 
 SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
     WeatherFlowSensorEntityDescription(
-        key="utc_time",
-        name="UTC Time",
-        icon="mdi:clock",
-        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
-        device_class=DEVICE_CLASS_DATE,
-        device_type="AIR",
-    ),
-    WeatherFlowSensorEntityDescription(
         key="air_temperature",
         name="Air Temperature",
-        native_unit_of_measurement=TEMP_CELSIUS,
         device_class=DEVICE_CLASS_TEMPERATURE,
         entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
-        device_type="AIR",
+        native_unit_of_measurement=TEMP_CELSIUS,
+        unit_type="none",
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="barometric_pressure",
+        name="Barometric Pressure",
+        device_class=DEVICE_CLASS_PRESSURE,
+        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        unit_type="pressure",
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="sea_level_pressure",
+        name="Sea Level Pressure",
+        device_class=DEVICE_CLASS_PRESSURE,
+        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        unit_type="pressure",
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="station_pressure",
+        name="Station Pressure",
+        device_class=DEVICE_CLASS_PRESSURE,
+        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        unit_type="pressure",
     ),
     WeatherFlowSensorEntityDescription(
         key="wind_direction",
@@ -63,15 +77,14 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         icon="mdi:compass",
         native_unit_of_measurement=DEGREE,
         entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
-        device_type="SKY",
+        unit_type="none",
     ),
     WeatherFlowSensorEntityDescription(
         key="wind_gust",
         name="Wind Gust",
         icon="mdi:weather-windy",
-        native_unit_of_measurement="m/s",
         entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
-        device_type="SKY",
+        unit_type="length",
     ),
 )
 
@@ -87,11 +100,18 @@ async def async_setup_entry(
     weatherflowapi = entry_data["weatherflowapi"]
     coordinator = entry_data["coordinator"]
     station_data = entry_data["station_data"]
+    unit_descriptions = entry_data["unit_descriptions"]
 
     entities = []
     for description in SENSOR_TYPES:
         entities.append(
-            WeatherFlowSensor(weatherflowapi, coordinator, station_data, description)
+            WeatherFlowSensor(
+                weatherflowapi,
+                coordinator,
+                station_data,
+                description,
+                unit_descriptions,
+            )
         )
 
         _LOGGER.debug(
@@ -111,10 +131,15 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
         coordinator: DataUpdateCoordinator,
         station_data,
         description: WeatherFlowSensorEntityDescription,
+        unit_descriptions,
     ):
         """Initialize an WeatherFlow sensor."""
         super().__init__(weatherflowapi, coordinator, station_data, description)
         self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
+        if self.entity_description.native_unit_of_measurement is None:
+            self._attr_native_unit_of_measurement = unit_descriptions[
+                self.entity_description.unit_type
+            ]
 
     @property
     def native_value(self):

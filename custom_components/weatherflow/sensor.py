@@ -110,6 +110,7 @@ async def async_setup_entry(
                 coordinator,
                 station_data,
                 description,
+                entry,
                 unit_descriptions,
             )
         )
@@ -131,10 +132,13 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
         coordinator: DataUpdateCoordinator,
         station_data,
         description: WeatherFlowSensorEntityDescription,
+        entries: ConfigEntry,
         unit_descriptions,
     ):
         """Initialize an WeatherFlow sensor."""
-        super().__init__(weatherflowapi, coordinator, station_data, description)
+        super().__init__(
+            weatherflowapi, coordinator, station_data, description, entries
+        )
         self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
         if self.entity_description.native_unit_of_measurement is None:
             self._attr_native_unit_of_measurement = unit_descriptions[

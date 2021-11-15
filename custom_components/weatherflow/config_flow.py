@@ -77,7 +77,7 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             errors["base"] = "bad_request"
             return await self._show_setup_form(errors)
 
-        unique_id = station_data.hub_serial_number
+        unique_id = f"{station_data.key}-{CONF_FORECAST_TYPE}"
 
         await self.async_set_unique_id(unique_id)
         self._abort_if_unique_id_configured()
@@ -85,7 +85,7 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_create_entry(
             title=station_data.name,
             data={
-                CONF_ID: station_data.name,
+                CONF_ID: f"{station_data.name} ({user_input[CONF_FORECAST_TYPE]})",
                 CONF_STATION_ID: user_input[CONF_STATION_ID],
                 CONF_API_TOKEN: user_input[CONF_API_TOKEN],
                 CONF_FORECAST_TYPE: user_input[CONF_FORECAST_TYPE],

@@ -27,6 +27,7 @@ from pyweatherflowrest import (
 from pyweatherflowrest.data import StationDescription, ObservationDescription
 from .const import (
     DOMAIN,
+    CONF_FORECAST_TYPE,
     CONF_INTERVAL_OBSERVATION,
     CONFIG_OPTIONS,
     CONF_STATION_ID,
@@ -142,10 +143,12 @@ async def _async_get_or_create_nvr_device_in_registry(
     _model = "AIR & SKY"
     if station_data.is_tempest:
         _model = "Tempest"
+    # _unique_id = f"{station_data.key}-{entry.data[CONF_FORECAST_TYPE]}"
+
     device_registry.async_get_or_create(
         config_entry_id=entry.entry_id,
-        connections={(dr.CONNECTION_NETWORK_MAC, station_data.hub_serial_number)},
-        identifiers={(DOMAIN, station_data.hub_serial_number)},
+        connections={(dr.CONNECTION_NETWORK_MAC, entry.unique_id)},
+        identifiers={(DOMAIN, entry.unique_id)},
         manufacturer=DEFAULT_BRAND,
         name=entry.data[CONF_ID],
         model=_model,

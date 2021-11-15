@@ -132,11 +132,11 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
                         ATTR_FORECAST_TIME: item.utc_time,
                         ATTR_FORECAST_TEMP: item.air_temp_high,
                         ATTR_FORECAST_TEMP_LOW: item.air_temp_low,
-                        # ATTR_FORECAST_PRECIPITATION: item,
+                        ATTR_FORECAST_PRECIPITATION: item.precip,
                         ATTR_FORECAST_PRECIPITATION_PROBABILITY: item.precip_probability,
                         ATTR_FORECAST_CONDITION: format_condition(item.icon),
-                        # ATTR_FORECAST_WIND_SPEED: forecast.wind_avg,
-                        # ATTR_FORECAST_WIND_BEARING: forecast.wind_bearing,
+                        ATTR_FORECAST_WIND_SPEED: item.wind_avg,
+                        ATTR_FORECAST_WIND_BEARING: item.wind_direction,
                     }
                 )
             return data

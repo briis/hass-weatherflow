@@ -13,16 +13,16 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.const import (
     DEGREE,
-    DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_HUMIDITY,
     DEVICE_CLASS_ILLUMINANCE,
     DEVICE_CLASS_PRESSURE,
-    DEVICE_CLASS_SIGNAL_STRENGTH,
     DEVICE_CLASS_TEMPERATURE,
-    DEVICE_CLASS_DATE,
+    DEVICE_CLASS_TIMESTAMP,
+    DEVICE_CLASS_VOLTAGE,
     TEMP_CELSIUS,
 )
 from homeassistant.core import HomeAssistant
+from pyweatherflowrest.data import StationDescription
 
 from .const import (
     DOMAIN,
@@ -35,6 +35,7 @@ class WeatherFlowRequiredKeysMixin:
     """Mixin for required keys."""
 
     unit_type: str
+    tempest_sensor: bool
 
 
 @dataclass
@@ -52,6 +53,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         native_unit_of_measurement=TEMP_CELSIUS,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
+        tempest_sensor=None,
     ),
     WeatherFlowSensorEntityDescription(
         key="barometric_pressure",
@@ -59,6 +61,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_PRESSURE,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="pressure",
+        tempest_sensor=None,
     ),
     WeatherFlowSensorEntityDescription(
         key="sea_level_pressure",
@@ -66,6 +69,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_PRESSURE,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="pressure",
+        tempest_sensor=True,
     ),
     WeatherFlowSensorEntityDescription(
         key="station_pressure",
@@ -73,6 +77,72 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_PRESSURE,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="pressure",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="relative_humidity",
+        name="Relative Humidity",
+        native_unit_of_measurement="%",
+        device_class=DEVICE_CLASS_HUMIDITY,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="precip_rate",
+        name="Precipitation Rate",
+        icon="mdi:weather-pouring",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="precipitation_rate",
+        tempest_sensor=True,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="precip_accum_last_1hr",
+        name="Precipitation Last Hour",
+        icon="mdi:weather-rainy",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="precipitation",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="precip_accum_local_day",
+        name="Precipitation Today",
+        icon="mdi:weather-rainy",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="precipitation",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="precip_accum_local_yesterday",
+        name="Precipitation Yesterday",
+        icon="mdi:weather-rainy",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="precipitation",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="precip_minutes_local_day",
+        name="Precipitation Duration Today",
+        icon="mdi:timelapse",
+        native_unit_of_measurement="min",
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="precip_minutes_local_yesterday",
+        name="Precipitation Duration Yesterday",
+        icon="mdi:timelapse",
+        native_unit_of_measurement="min",
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="wind_avg",
+        name="Wind Speed",
+        icon="mdi:weather-windy-variant",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="length",
+        tempest_sensor=None,
     ),
     WeatherFlowSensorEntityDescription(
         key="wind_direction",
@@ -81,6 +151,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         native_unit_of_measurement=DEGREE,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
+        tempest_sensor=None,
     ),
     WeatherFlowSensorEntityDescription(
         key="wind_gust",
@@ -88,6 +159,179 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         icon="mdi:weather-windy",
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="length",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="wind_lull",
+        name="Wind Lull",
+        icon="mdi:weather-windy-variant",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="length",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="solar_radiation",
+        name="Solar Radiation",
+        icon="mdi:solar-power",
+        native_unit_of_measurement="W/m^2",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="uv",
+        name="UV Index",
+        icon="mdi:weather-sunny-alert",
+        native_unit_of_measurement="UVI",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="brightness",
+        name="Brightness",
+        device_class=DEVICE_CLASS_ILLUMINANCE,
+        native_unit_of_measurement="lx",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="lightning_strike_last_epoch",
+        name="Last Lightning Strike",
+        device_class=DEVICE_CLASS_TIMESTAMP,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=True,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="lightning_strike_last_distance",
+        name="Last Lightning Strike Distance",
+        icon="mdi:map-marker-distance",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="distance",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="lightning_strike_count",
+        name="Lightning Strike Count",
+        icon="mdi:weather-lightning",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="lightning_strike_count_last_1hr",
+        name="Lightning Strike Count Last Hour",
+        icon="mdi:weather-lightning",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="lightning_strike_count_last_3hr",
+        name="Lightning Strike Count Last 3 Hours",
+        icon="mdi:weather-lightning",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="feels_like",
+        name="Feels Like Temperature",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=True,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="heat_index",
+        name="Heat Index",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="wind_chill",
+        name="Wind Chill",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="dew_point",
+        name="Dewpoint",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="wet_bulb_temperature",
+        name="Wet Bulb Temperature",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="delta_t",
+        name="Delta T",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="air_density",
+        name="Air Density",
+        icon="mdi:air-filter",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="density",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="pressure_trend",
+        name="Pressure Trend",
+        icon="mdi:trending-up",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="voltage_air",
+        name="Voltage AIR",
+        device_class=DEVICE_CLASS_VOLTAGE,
+        native_unit_of_measurement="V",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=False,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="voltage_sky",
+        name="Voltage SKY",
+        device_class=DEVICE_CLASS_VOLTAGE,
+        native_unit_of_measurement="V",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=False,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="voltage_tempest",
+        name="Voltage Tempest",
+        device_class=DEVICE_CLASS_VOLTAGE,
+        native_unit_of_measurement="V",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        tempest_sensor=True,
     ),
 )
 
@@ -102,26 +346,30 @@ async def async_setup_entry(
     entry_data = hass.data[DOMAIN][entry.entry_id]
     weatherflowapi = entry_data["weatherflowapi"]
     coordinator = entry_data["coordinator"]
-    station_data = entry_data["station_data"]
+    station_data: StationDescription = entry_data["station_data"]
     unit_descriptions = entry_data["unit_descriptions"]
 
     entities = []
     for description in SENSOR_TYPES:
-        entities.append(
-            WeatherFlowSensor(
-                weatherflowapi,
-                coordinator,
-                station_data,
-                description,
-                entry,
-                unit_descriptions,
+        if (
+            description.tempest_sensor is None
+            or description.tempest_sensor is station_data.is_tempest
+        ):
+            entities.append(
+                WeatherFlowSensor(
+                    weatherflowapi,
+                    coordinator,
+                    station_data,
+                    description,
+                    entry,
+                    unit_descriptions,
+                )
             )
-        )
 
-        _LOGGER.debug(
-            "Adding sensor entity %s",
-            description.name,
-        )
+            _LOGGER.debug(
+                "Adding sensor entity %s",
+                description.name,
+            )
 
     async_add_entities(entities)
 
@@ -133,7 +381,7 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
         self,
         weatherflowapi,
         coordinator: DataUpdateCoordinator,
-        station_data,
+        station_data: StationDescription,
         description: WeatherFlowSensorEntityDescription,
         entries: ConfigEntry,
         unit_descriptions,

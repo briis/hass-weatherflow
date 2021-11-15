@@ -6,6 +6,7 @@ import logging
 
 from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.const import (
     DEGREE,
     DEVICE_CLASS_BATTERY,
@@ -107,7 +108,7 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
     def __init__(
         self,
         weatherflowapi,
-        coordinator,
+        coordinator: DataUpdateCoordinator,
         station_data,
         description: WeatherFlowSensorEntityDescription,
     ):
@@ -118,4 +119,8 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
     @property
     def native_value(self):
         """Return the state of the sensor."""
-        return self._device_value
+        return (
+            getattr(self.coordinator.data, self.entity_description.key)
+            if self.coordinator.data
+            else None
+        )

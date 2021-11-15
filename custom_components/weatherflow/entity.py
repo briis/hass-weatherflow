@@ -38,9 +38,6 @@ class WeatherFlowEntity(CoordinatorEntity, Entity):
         self.coordinator = coordinator
         self.station_data = station_data
         self._device_data: ObservationDescription = self.coordinator.data
-        self._device_value = getattr(
-            self.coordinator.data, self.entity_description.key, None
-        )
         self._attr_available = self.coordinator.last_update_success
         self._attr_unique_id = (
             f"{description.key}_{self.station_data.hub_serial_number}"
@@ -58,9 +55,3 @@ class WeatherFlowEntity(CoordinatorEntity, Entity):
         return {
             ATTR_ATTRIBUTION: DEFAULT_ATTRIBUTION,
         }
-
-    # async def async_added_to_hass(self):
-    #     """When entity is added to hass."""
-    #     self.async_on_remove(
-    #         self.coordinator.async_add_listener(self.async_write_ha_state)
-    #     )

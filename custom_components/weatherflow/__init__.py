@@ -13,7 +13,7 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 import homeassistant.helpers.device_registry as dr
 
 from pyweatherflowrest import (
@@ -23,7 +23,7 @@ from pyweatherflowrest import (
     Invalid,
     WeatherFlowApiClient,
 )
-from pyweatherflowrest.data import StationDescription
+from pyweatherflowrest.data import StationDescription, ObservationDescription
 from .const import (
     DOMAIN,
     CONFIG_OPTIONS,
@@ -83,16 +83,25 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             entry, unique_id=station_data.hub_serial_number
         )
 
+    async def async_update_data():
+        """Obtain the latest data from WeatherFlow."""
+        try:
+            data: ObservationDescription = await weatherflowapi.update_observations()
+            return data
+
+        except (BadRequest, Invalid) as err:
+            raise UpdateFailed(f"Error while retreiving data: {err}") from err
+
     coordinator = DataUpdateCoordinator(
         hass,
         _LOGGER,
         name=DOMAIN,
-        update_method=weatherflowapi.update_observations,
+        update_method=async_update_data,
         update_interval=timedelta(
             minutes=entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_OBSERVATION_INTERVAL)
         ),
     )
-    await coordinator.async_refresh()
+    await coordinator.async_config_entry_first_refresh()
     if not coordinator.last_update_success:
         raise ConfigEntryNotReady
 
@@ -135,14 +144,8 @@ async def _async_options_updated(hass: HomeAssistant, entry: ConfigEntry):
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Unload Unifi Protect config entry."""
+    """Unload WeatherFlow entry."""
     unload_ok = await hass.config_entries.async_unload_platforms(
         entry, WEATHERFLOW_PLATFORMS
     )
-
-    if unload_ok:
-        data = hass.data[DOMAIN][entry.entry_id]
-        await data["weatherflowapi"].req.close()
-        hass.data[DOMAIN].pop(entry.entry_id)
-
     return unload_ok

@@ -24,6 +24,8 @@ from .const import (
     CONF_INTERVAL_OBSERVATION,
     CONF_INTERVAL_FORECAST,
     CONF_STATION_ID,
+    DEFAULT_FORECAST_INTERVAL,
+    DEFAULT_OBSERVATION_INTERVAL,
     FORECAST_TYPE_DAILY,
     VALID_FORECAST_TYPES,
 )
@@ -92,7 +94,7 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_ADD_SENSORS: user_input[CONF_ADD_SENSORS],
             },
             options={
-                CONF_INTERVAL_OBSERVATION: 1,
+                CONF_INTERVAL_OBSERVATION: 2,
                 CONF_INTERVAL_FORECAST: 30,
             },
         )
@@ -134,13 +136,15 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                     vol.Optional(
                         CONF_INTERVAL_OBSERVATION,
                         default=self.config_entry.data.get(
-                            CONF_INTERVAL_OBSERVATION, 1
+                            CONF_INTERVAL_OBSERVATION, DEFAULT_OBSERVATION_INTERVAL
                         ),
-                    ): str,
+                    ): vol.All(vol.Coerce(int), vol.Range(min=1, max=30)),
                     vol.Optional(
                         CONF_INTERVAL_FORECAST,
-                        default=self.config_entry.data.get(CONF_INTERVAL_FORECAST, 30),
-                    ): str,
+                        default=self.config_entry.data.get(
+                            CONF_INTERVAL_FORECAST, DEFAULT_FORECAST_INTERVAL
+                        ),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=15, max=120)),
                 }
             ),
         )

@@ -27,7 +27,6 @@ from pyweatherflowrest import (
 from pyweatherflowrest.data import StationDescription, ObservationDescription
 from .const import (
     DOMAIN,
-    CONF_FORECAST_TYPE,
     CONF_INTERVAL_OBSERVATION,
     CONFIG_OPTIONS,
     CONF_STATION_ID,

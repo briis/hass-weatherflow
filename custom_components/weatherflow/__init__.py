@@ -24,8 +24,14 @@ from pyweatherflowrest import (
     Invalid,
     WeatherFlowApiClient,
 )
-from pyweatherflowrest.data import StationDescription, ObservationDescription
+from pyweatherflowrest.data import (
+    StationDescription,
+    ObservationDescription,
+    ForecastDescription,
+)
 from .const import (
+    CONF_INTERVAL_FORECAST,
+    DEFAULT_FORECAST_INTERVAL,
     DOMAIN,
     CONF_INTERVAL_OBSERVATION,
     CONFIG_OPTIONS,
@@ -102,6 +108,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         except (BadRequest, Invalid) as err:
             raise UpdateFailed(f"Error while retreiving data: {err}") from err
 
+    async def async_update_forecast():
+        """Obtain the latest forecast from WeatherFlow."""
+        try:
+            data: ForecastDescription = await weatherflowapi.update_forecast()
+            return data
+
+        except (BadRequest, Invalid) as err:
+            raise UpdateFailed(f"Error while retreiving forecast data: {err}") from err
+
     unit_descriptions = await weatherflowapi.load_unit_system()
 
     coordinator = DataUpdateCoordinator(
@@ -119,8 +134,22 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if not coordinator.last_update_success:
         raise ConfigEntryNotReady
 
+    forecast_coordinator = DataUpdateCoordinator(
+        hass,
+        _LOGGER,
+        name=DOMAIN,
+        update_method=async_update_forecast,
+        update_interval=timedelta(
+            minutes=entry.options.get(CONF_INTERVAL_FORECAST, DEFAULT_FORECAST_INTERVAL)
+        ),
+    )
+    await forecast_coordinator.async_config_entry_first_refresh()
+    if not forecast_coordinator.last_update_success:
+        raise ConfigEntryNotReady
+
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = {
         "coordinator": coordinator,
+        "forecast_coordinator": forecast_coordinator,
         "weatherflowapi": weatherflowapi,
         "station_data": station_data,
         "unit_descriptions": unit_descriptions,
@@ -139,10 +168,7 @@ async def _async_get_or_create_nvr_device_in_registry(
     hass: HomeAssistant, entry: ConfigEntry, station_data: StationDescription
 ) -> None:
     device_registry = await dr.async_get_registry(hass)
-    _model = "AIR & SKY"
-    if station_data.is_tempest:
-        _model = "Tempest"
-    # _unique_id = f"{station_data.key}-{entry.data[CONF_FORECAST_TYPE]}"
+    _model = "Tempest" if station_data.is_tempest else "AIR & SKY"
 
     device_registry.async_get_or_create(
         config_entry_id=entry.entry_id,

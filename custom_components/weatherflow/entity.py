@@ -12,7 +12,7 @@ from homeassistant.helpers.update_coordinator import (
     DataUpdateCoordinator,
 )
 
-from pyweatherflowrest.data import ObservationDescription, StationDescription
+from pyweatherflowrest.data import StationDescription
 
 from .const import DEFAULT_ATTRIBUTION, DEFAULT_BRAND, DOMAIN
 
@@ -26,6 +26,7 @@ class WeatherFlowEntity(CoordinatorEntity, Entity):
         self,
         weatherflowapi,
         coordinator: DataUpdateCoordinator,
+        forecast_coordinator: DataUpdateCoordinator,
         station_data: StationDescription,
         description,
         entries: ConfigEntry,
@@ -38,9 +39,9 @@ class WeatherFlowEntity(CoordinatorEntity, Entity):
 
         self.weatherflowapi = weatherflowapi
         self.coordinator = coordinator
+        self.forecast_coordinator = forecast_coordinator
         self.station_data = station_data
         self.entry: ConfigEntry = entries
-        self._device_data: ObservationDescription = self.coordinator.data
         self._attr_available = self.coordinator.last_update_success
         self._attr_unique_id = f"{description.key}_{self.station_data.key}"
         self._attr_device_info = DeviceInfo(

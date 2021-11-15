@@ -40,6 +40,7 @@ async def async_setup_entry(
     entry_data = hass.data[DOMAIN][entry.entry_id]
     weatherflowapi = entry_data["weatherflowapi"]
     coordinator = entry_data["coordinator"]
+    forecast_coordinator = entry_data["forecast_coordinator"]
     station_data: StationDescription = entry_data["station_data"]
 
     entities = []
@@ -48,6 +49,7 @@ async def async_setup_entry(
             WeatherFlowBinarySensor(
                 weatherflowapi,
                 coordinator,
+                forecast_coordinator,
                 station_data,
                 description,
                 entry,
@@ -69,13 +71,19 @@ class WeatherFlowBinarySensor(WeatherFlowEntity, BinarySensorEntity):
         self,
         weatherflowapi,
         coordinator: DataUpdateCoordinator,
+        forecast_coordinator: DataUpdateCoordinator,
         station_data: StationDescription,
         description: BinarySensorEntityDescription,
         entries: ConfigEntry,
     ):
         """Initialize an WeatherFlow binary sensor."""
         super().__init__(
-            weatherflowapi, coordinator, station_data, description, entries
+            weatherflowapi,
+            coordinator,
+            forecast_coordinator,
+            station_data,
+            description,
+            entries,
         )
         self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
         self._attr_is_on = getattr(self.coordinator.data, self.entity_description.key)

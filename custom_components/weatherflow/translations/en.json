@@ -15,9 +15,7 @@
                 "title": "WeatherFlow",
                 "data": {
                     "station_id": "Station Id",
-                    "api_token": "Personal Api Token",
-                    "forecast_type": "Forecast Type to use",
-                    "add_sensors": "Add the sensors (Deselect if loaded in another instance)"
+                    "api_token": "Personal Api Token"
                 }
             }
         }

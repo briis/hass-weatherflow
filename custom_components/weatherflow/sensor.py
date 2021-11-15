@@ -346,6 +346,7 @@ async def async_setup_entry(
     entry_data = hass.data[DOMAIN][entry.entry_id]
     weatherflowapi = entry_data["weatherflowapi"]
     coordinator = entry_data["coordinator"]
+    forecast_coordinator = entry_data["forecast_coordinator"]
     station_data: StationDescription = entry_data["station_data"]
     unit_descriptions = entry_data["unit_descriptions"]
 
@@ -359,6 +360,7 @@ async def async_setup_entry(
                 WeatherFlowSensor(
                     weatherflowapi,
                     coordinator,
+                    forecast_coordinator,
                     station_data,
                     description,
                     entry,
@@ -381,6 +383,7 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
         self,
         weatherflowapi,
         coordinator: DataUpdateCoordinator,
+        forecast_coordinator: DataUpdateCoordinator,
         station_data: StationDescription,
         description: WeatherFlowSensorEntityDescription,
         entries: ConfigEntry,
@@ -388,7 +391,12 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
     ):
         """Initialize an WeatherFlow sensor."""
         super().__init__(
-            weatherflowapi, coordinator, station_data, description, entries
+            weatherflowapi,
+            coordinator,
+            forecast_coordinator,
+            station_data,
+            description,
+            entries,
         )
         self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
         if self.entity_description.native_unit_of_measurement is None:

@@ -19,15 +19,11 @@ import voluptuous as vol
 
 from .const import (
     DOMAIN,
-    CONF_ADD_SENSORS,
-    CONF_FORECAST_TYPE,
     CONF_INTERVAL_OBSERVATION,
     CONF_INTERVAL_FORECAST,
     CONF_STATION_ID,
     DEFAULT_FORECAST_INTERVAL,
     DEFAULT_OBSERVATION_INTERVAL,
-    FORECAST_TYPE_DAILY,
-    VALID_FORECAST_TYPES,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -79,7 +75,7 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             errors["base"] = "bad_request"
             return await self._show_setup_form(errors)
 
-        unique_id = f"{station_data.key}-{CONF_FORECAST_TYPE}"
+        unique_id = station_data.key
 
         await self.async_set_unique_id(unique_id)
         self._abort_if_unique_id_configured()
@@ -87,11 +83,9 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_create_entry(
             title=station_data.name,
             data={
-                CONF_ID: f"{station_data.name} ({user_input[CONF_FORECAST_TYPE]})",
+                CONF_ID: station_data.key,
                 CONF_STATION_ID: user_input[CONF_STATION_ID],
                 CONF_API_TOKEN: user_input[CONF_API_TOKEN],
-                CONF_FORECAST_TYPE: user_input[CONF_FORECAST_TYPE],
-                CONF_ADD_SENSORS: user_input[CONF_ADD_SENSORS],
             },
             options={
                 CONF_INTERVAL_OBSERVATION: 2,
@@ -107,10 +101,6 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 {
                     vol.Required(CONF_STATION_ID): int,
                     vol.Required(CONF_API_TOKEN): str,
-                    vol.Required(
-                        CONF_FORECAST_TYPE, default=FORECAST_TYPE_DAILY
-                    ): vol.In(VALID_FORECAST_TYPES),
-                    vol.Required(CONF_ADD_SENSORS, default=True): bool,
                 }
             ),
             errors=errors or {},

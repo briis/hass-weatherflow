@@ -22,6 +22,7 @@ FORECAST_TYPE_DAILY = "Daily"
 FORECAST_TYPE_HOURLY = "Hourly"
 
 WEATHERFLOW_PLATFORMS = [
+    "binary_sensor",
     "sensor",
 ]
 

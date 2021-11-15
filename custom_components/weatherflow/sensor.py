@@ -4,7 +4,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 import logging
 
-from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
+from homeassistant.components.sensor import (
+    SensorEntity,
+    SensorEntityDescription,
+    STATE_CLASS_MEASUREMENT,
+)
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.const import (
@@ -16,7 +20,6 @@ from homeassistant.const import (
     DEVICE_CLASS_SIGNAL_STRENGTH,
     DEVICE_CLASS_TEMPERATURE,
     DEVICE_CLASS_DATE,
-    ENTITY_CATEGORY_DIAGNOSTIC,
     TEMP_CELSIUS,
 )
 from homeassistant.core import HomeAssistant
@@ -46,29 +49,29 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="air_temperature",
         name="Air Temperature",
         device_class=DEVICE_CLASS_TEMPERATURE,
-        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
         native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
     ),
     WeatherFlowSensorEntityDescription(
         key="barometric_pressure",
         name="Barometric Pressure",
         device_class=DEVICE_CLASS_PRESSURE,
-        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        state_class=STATE_CLASS_MEASUREMENT,
         unit_type="pressure",
     ),
     WeatherFlowSensorEntityDescription(
         key="sea_level_pressure",
         name="Sea Level Pressure",
         device_class=DEVICE_CLASS_PRESSURE,
-        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        state_class=STATE_CLASS_MEASUREMENT,
         unit_type="pressure",
     ),
     WeatherFlowSensorEntityDescription(
         key="station_pressure",
         name="Station Pressure",
         device_class=DEVICE_CLASS_PRESSURE,
-        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        state_class=STATE_CLASS_MEASUREMENT,
         unit_type="pressure",
     ),
     WeatherFlowSensorEntityDescription(
@@ -76,14 +79,14 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         name="Wind Direction",
         icon="mdi:compass",
         native_unit_of_measurement=DEGREE,
-        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
     ),
     WeatherFlowSensorEntityDescription(
         key="wind_gust",
         name="Wind Gust",
         icon="mdi:weather-windy",
-        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        state_class=STATE_CLASS_MEASUREMENT,
         unit_type="length",
     ),
 )

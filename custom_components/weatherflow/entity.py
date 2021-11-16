@@ -3,15 +3,14 @@ from __future__ import annotations
 
 import logging
 
+import homeassistant.helpers.device_registry as dr
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ATTRIBUTION
 from homeassistant.helpers.entity import DeviceInfo, Entity
-from homeassistant.config_entries import ConfigEntry
-import homeassistant.helpers.device_registry as dr
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
 )
-
 from pyweatherflowrest.data import StationDescription
 
 from .const import DEFAULT_ATTRIBUTION, DEFAULT_BRAND, DOMAIN

@@ -1,16 +1,15 @@
 """This component provides sensors for WeatherFlow."""
 from __future__ import annotations
 
-from dataclasses import dataclass
 import logging
+from dataclasses import dataclass
 
 from homeassistant.components.sensor import (
+    STATE_CLASS_MEASUREMENT,
     SensorEntity,
     SensorEntityDescription,
-    STATE_CLASS_MEASUREMENT,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.const import (
     DEGREE,
     DEVICE_CLASS_HUMIDITY,
@@ -22,11 +21,10 @@ from homeassistant.const import (
     TEMP_CELSIUS,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyweatherflowrest.data import StationDescription
 
-from .const import (
-    DOMAIN,
-)
+from .const import DOMAIN
 from .entity import WeatherFlowEntity
 
 

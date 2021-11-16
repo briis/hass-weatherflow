@@ -20,11 +20,12 @@ from homeassistant.const import TEMP_CELSIUS
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyweatherflowrest.data import (
-    StationDescription,
     ForecastDailyDescription,
     ForecastHourlyDescription,
+    StationDescription,
 )
-from .const import DOMAIN, CONDITION_CLASSES
+
+from .const import CONDITION_CLASSES, DOMAIN
 from .entity import WeatherFlowEntity
 
 _WEATHER_DAILY = "weather_daily"

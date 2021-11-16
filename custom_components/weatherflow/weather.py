@@ -115,6 +115,7 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
         self._attr_temperature_unit = TEMP_CELSIUS
         self._attr_pressure = self.coordinator.data.sea_level_pressure
         self._attr_humidity = self.coordinator.data.relative_humidity
+        self._attr_visibility = self.coordinator.data.visibility
         self._attr_wind_speed = self.forecast_coordinator.data.wind_avg
         self._attr_wind_bearing = self.forecast_coordinator.data.wind_direction
         self._attr_condition = format_condition(self.forecast_coordinator.data.icon)

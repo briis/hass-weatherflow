@@ -69,7 +69,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_PRESSURE,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="pressure",
-        tempest_sensor=True,
+        tempest_sensor=None,
     ),
     WeatherFlowSensorEntityDescription(
         key="station_pressure",
@@ -94,7 +94,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         icon="mdi:weather-pouring",
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="precipitation_rate",
-        tempest_sensor=True,
+        tempest_sensor=None,
     ),
     WeatherFlowSensorEntityDescription(
         key="precip_accum_last_1hr",
@@ -202,7 +202,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_TIMESTAMP,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
-        tempest_sensor=True,
+        tempest_sensor=None,
     ),
     WeatherFlowSensorEntityDescription(
         key="lightning_strike_last_distance",
@@ -243,7 +243,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         native_unit_of_measurement=TEMP_CELSIUS,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
-        tempest_sensor=True,
+        tempest_sensor=None,
     ),
     WeatherFlowSensorEntityDescription(
         key="heat_index",
@@ -403,12 +403,6 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
             self._attr_native_unit_of_measurement = unit_descriptions[
                 self.entity_description.unit_type
             ]
-
-    @property
-    def native_value(self):
-        """Return the state of the sensor."""
-        return (
-            getattr(self.coordinator.data, self.entity_description.key)
-            if self.coordinator.data
-            else None
+        self._attr_native_value = getattr(
+            self.coordinator.data, self.entity_description.key
         )

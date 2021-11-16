@@ -61,12 +61,15 @@ Here is the list of sensors that the program generates. Calculated Sensor means,
 | delta_t | Delta T | Difference between Air Temperature and Wet Bulb Temperature | No |
 | dewpoint | Dew Point | Dewpoint in degrees | No |
 | feelslike | Feels Like Temperature | The apparent temperature, a mix of Heat Index and Wind Chill | No |
-| brightness | Brightness | How much the incident light illuminates the surface | No |
+| heat_index | Heat Index | How warm does it feel? | No |
+| wind_chill | Wind Chill | How cold does it feel? | No |
+| wet_bulb_temperature | Wet Bulb Temperature | Temperature of a parcel of air cooled to saturation (100% relative humidity) | No |
 | lightning_strike_count | Lightning Count | Number of lightning strikes in the last minute | No |
 | lightning_strike_count_1hr | Lightning Count (Last hour) | Number of lightning strikes during the last hour | No |
 | lightning_strike_count_3hr | Lightning Count (3 hours) | Number of lightning strikes the last 3 hours | No |
 | lightning_strike_last_distance | Lightning Distance | Distance of the last strike | No |
 | lightning_strike_last_epoch | Last Lightning Strike | When the last lightning strike occurred | No |
+| precip | Rain | reported the last minute | No |
 | precip_rate | Rain Rate | How much is it raining right now | Yes |
 | precip_accum_last_1hr | Rain in the last hour | Total rain accumulation for the last hour | No |
 | precip_accum_local_day | Rain Today | Total rain for the current day. (Reset at midnight) | No |
@@ -74,17 +77,18 @@ Here is the list of sensors that the program generates. Calculated Sensor means,
 | precip_minutes_local_day | Rain Duration (Today) | Total rain minutes for the current day. (Reset at midnight) | No |
 | precip_minutes_local_yesterday | Rain Duration (Yesterday) | Total rain minutes yesterday | No |
 | relative_humidity | Humidity | Relative Humidity | No |
-| sealevel_pressure | Station Pressure | Preasure measurement at Sea Level | No |
 | pressure_trend | Pressure Trend | Returns Steady, Falling or Rising determined by the rate of change over the past 3 hours| No |
-| solar_radiation | Solar Radiation | Electromagnetic radiation emitted by the sun | No |
+| barometric_pressure | Barometric Pressure | The Barometric pressure | No |
+| sealevel_pressure | Station Pressure | Preasure measurement at Sea Level | No |
 | station_pressure | Station Pressure | Pressure measurement where the station is located | No |
+| brightness | Brightness | How much the incident light illuminates the surface | No |
+| solar_radiation | Solar Radiation | Electromagnetic radiation emitted by the sun | No |
 | uv | UV Index | The UV index | No |
 | visibility | Visibility | Distance to the horizon | Yes |
-| wet_bulb_temperature | Wet Bulb Temperature | Temperature of a parcel of air cooled to saturation (100% relative humidity) | No |
+| wind_avg | Wind Speed Avg | Average wind speed for the last minute | No |
 | wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |
 | wind_gust | Wind Gust | Highest wind speed for the last minute | No |
 | wind_lull | Wind Lull | Lowest wind for the last minute | No |
-| wind_avg | Wind Speed Avg | Average wind speed for the last minute | No |
 
 ## Available Binary Sensors
 

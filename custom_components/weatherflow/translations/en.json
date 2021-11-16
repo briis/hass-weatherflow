@@ -11,7 +11,7 @@
         },
         "step": {
             "user": {
-                "description": "Set up WeatherFlow Weather Station",
+                "description": "Set up a WeatherFlow Station",
                 "title": "WeatherFlow",
                 "data": {
                     "station_id": "Station Id",

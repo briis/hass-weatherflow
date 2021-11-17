@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - `weatherflow`: Danish Language for config flow added.
 
+### Changed
+- `weatherflow`: Simplified Wind Conversion
+
 ## [0.1.4] - 2021-11-17
 
 ### Fixed

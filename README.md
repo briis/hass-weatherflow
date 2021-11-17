@@ -23,7 +23,7 @@ This Integration is not part of the default HACS store yet, but you can add it a
 
 You should now be able to find this Integration in HACS. (Most times you need to do a Hard Refresh of the browser before it shows up)
 
-### Manual Installation
+### Manual installation
 
 To add WeatherFlow to your installation, create this folder structure in your /config directory:
 
@@ -105,7 +105,7 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 
 ## Available Weather Entities
 
-Here is the list of Weather Entities that the program generates. With the exception of the condition state and the icon, the values for the current condition are equal to the Sensor values, so the Weather entity displayes realtime values and the forecast for either the next days or the next hours.
+Here is the list of Weather Entities that the program generates. With the exception of the condition state and the icon, the values for the current condition are equal to the Sensor values, so the Weather entity displayes realtime values and the forecast for either the next days or the next hours. Both entities are installed.
 
 All entities are prefixed with `weatherflow_` and names are prefixed with `Weatherflow`
 

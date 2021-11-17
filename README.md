@@ -46,6 +46,8 @@ translation (Directory with all files)
 
 Here is the list of sensors that the program generates. Calculated Sensor means, if No, then data comes directly from the Weather Station, if yes, it is a sensor that is derived from some of the other sensors.
 
+All entities are prefixed with `weatherflow_` and names are prefixed with `Weatherflow`
+
 | Sensor ID   | Name   | Description   | Calculated Sensor   |
 | --- | --- | --- | --- |
 | absolute_humidity | Absolute Humidity | The amount of water per volume of air | Yes |
@@ -94,8 +96,21 @@ Here is the list of sensors that the program generates. Calculated Sensor means,
 
 Here is the list of binary sensors that the program generates. These sensors are all calculated based on values from other sensors
 
+All entities are prefixed with `weatherflow_` and names are prefixed with `Weatherflow`
+
 | Sensor ID   | Name   | Description   |
 | --- | --- | --- |
 | is_freezing | Is Freezing | Is the Temperature below freezing point |
 | is_raining | Is Raining | Is it raining outside |
+
+## Available Weather Entities
+
+Here is the list of Weather Entities that the program generates. With the exception of the condition state and the icon, the values for the current condition are equal to the Sensor values, so the Weather entity displayes realtime values and the forecast for either the next days or the next hours.
+
+All entities are prefixed with `weatherflow_` and names are prefixed with `Weatherflow`
+
+| Sensor ID   | Name   | Description   |
+| --- | --- | --- |
+| day_based_forecast | Day Based Forecast | A weather entity with Forecast for today and the next 9 days |
+| hourly_based_forecast | Hour Based Forecast | A weather entity with Forecast for the next 240 hours |
 

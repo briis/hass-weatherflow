@@ -16,9 +16,14 @@ from homeassistant.components.weather import (
     WeatherEntityDescription,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import TEMP_CELSIUS
+from homeassistant.const import (
+    SPEED_KILOMETERS_PER_HOUR,
+    SPEED_METERS_PER_SECOND,
+    TEMP_CELSIUS,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.util.speed import convert as convert_speed
 from pyweatherflowrest.data import (
     ForecastDailyDescription,
     ForecastHourlyDescription,
@@ -62,7 +67,6 @@ async def async_setup_entry(
     coordinator = entry_data["coordinator"]
     forecast_coordinator = entry_data["forecast_coordinator"]
     station_data: StationDescription = entry_data["station_data"]
-    unit_descriptions = entry_data["unit_descriptions"]
 
     entities = []
     for description in WEATHER_TYPES:
@@ -74,7 +78,7 @@ async def async_setup_entry(
                 station_data,
                 description,
                 entry,
-                unit_descriptions,
+                hass.config.units.is_metric,
             )
         )
 
@@ -97,7 +101,7 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
         station_data: StationDescription,
         description: WeatherEntityDescription,
         entries: ConfigEntry,
-        unit_descriptions,
+        is_metric: bool,
     ):
         """Initialize an WeatherFlow sensor."""
         super().__init__(
@@ -108,17 +112,60 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
             description,
             entries,
         )
-        self.unit_descriptions = unit_descriptions
         self.daily_forecast = self.entity_description.key in _WEATHER_DAILY
+        self._is_metric = is_metric
         self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
-        self._attr_temperature = self.coordinator.data.air_temperature
-        self._attr_temperature_unit = TEMP_CELSIUS
-        self._attr_pressure = self.coordinator.data.sea_level_pressure
-        self._attr_humidity = self.coordinator.data.relative_humidity
-        self._attr_visibility = self.coordinator.data.visibility
-        self._attr_wind_speed = self.forecast_coordinator.data.wind_avg
-        self._attr_wind_bearing = self.forecast_coordinator.data.wind_direction
-        self._attr_condition = format_condition(self.forecast_coordinator.data.icon)
+
+    @property
+    def condition(self):
+        """Return the current condition."""
+        return format_condition(self.forecast_coordinator.data.icon)
+
+    @property
+    def temperature(self):
+        """Return the temperature."""
+        return self.coordinator.data.air_temperature
+
+    @property
+    def temperature_unit(self):
+        """Return the unit of measurement."""
+        return TEMP_CELSIUS
+
+    @property
+    def humidity(self):
+        """Return the humidity."""
+        return self.coordinator.data.relative_humidity
+
+    @property
+    def pressure(self):
+        """Return the pressure."""
+        return self.coordinator.data.sea_level_pressure
+
+    @property
+    def wind_speed(self):
+        """Return the wind speed."""
+        if self.coordinator.data.wind_avg is None:
+            return None
+
+        if self._is_metric:
+            speed_km_h = convert_speed(
+                self.coordinator.data.wind_avg,
+                SPEED_METERS_PER_SECOND,
+                SPEED_KILOMETERS_PER_HOUR,
+            )
+            return int(round(speed_km_h))
+
+        return int(round(self.coordinator.data.wind_avg))
+
+    @property
+    def wind_bearing(self):
+        """Return the wind bearing."""
+        return self.coordinator.data.wind_direction
+
+    @property
+    def visibility(self):
+        """Return the visibility."""
+        return self.coordinator.data.visibility
 
     @property
     def forecast(self):

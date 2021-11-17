@@ -23,7 +23,6 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from homeassistant.util.speed import convert as convert_speed
 from pyweatherflowrest.data import (
     ForecastDailyDescription,
     ForecastHourlyDescription,
@@ -56,6 +55,16 @@ def format_condition(condition: str):
         (k for k, v in CONDITION_CLASSES.items() if condition in v),
         None,
     )
+
+
+def convert_speed(value: float, from_unit, to_unit) -> float:
+    """Convert Speed to a different unit type"""
+    if from_unit == SPEED_METERS_PER_SECOND:
+        if to_unit == SPEED_KILOMETERS_PER_HOUR:
+            return value * 3.6
+        return value * 2.23693629
+
+    return value
 
 
 async def async_setup_entry(

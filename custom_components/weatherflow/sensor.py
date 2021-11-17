@@ -455,6 +455,12 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
             self._attr_native_unit_of_measurement = unit_descriptions[
                 self.entity_description.unit_type
             ]
-        self._attr_native_value = getattr(
-            self.coordinator.data, self.entity_description.key
+
+    @property
+    def native_value(self):
+        """Return the state of the sensor."""
+        return (
+            getattr(self.coordinator.data, self.entity_description.key)
+            if self.coordinator.data
+            else None
         )

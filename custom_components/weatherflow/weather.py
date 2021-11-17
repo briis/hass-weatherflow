@@ -16,11 +16,7 @@ from homeassistant.components.weather import (
     WeatherEntityDescription,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import (
-    SPEED_KILOMETERS_PER_HOUR,
-    SPEED_METERS_PER_SECOND,
-    TEMP_CELSIUS,
-)
+from homeassistant.const import TEMP_CELSIUS
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyweatherflowrest.data import (
@@ -55,16 +51,6 @@ def format_condition(condition: str):
         (k for k, v in CONDITION_CLASSES.items() if condition in v),
         None,
     )
-
-
-def convert_speed(value: float, from_unit, to_unit) -> float:
-    """Convert Speed to a different unit type"""
-    if from_unit == SPEED_METERS_PER_SECOND:
-        if to_unit == SPEED_KILOMETERS_PER_HOUR:
-            return value * 3.6
-        return value * 2.23693629
-
-    return value
 
 
 async def async_setup_entry(
@@ -157,12 +143,7 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
             return None
 
         if self._is_metric:
-            speed_km_h = convert_speed(
-                self.coordinator.data.wind_avg,
-                SPEED_METERS_PER_SECOND,
-                SPEED_KILOMETERS_PER_HOUR,
-            )
-            return int(round(speed_km_h))
+            return int(round(self.coordinator.data.wind_avg * 3.6))
 
         return int(round(self.coordinator.data.wind_avg))
 

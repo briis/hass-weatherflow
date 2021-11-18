@@ -3,8 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [0.1.6] - Unreleased
 
+### Added
+- `weatherflow`: New sensor called `precip_intensity`, which displayes how much it is raining right now in a descriptive text.
+
 ### Changed
 - `weatherflow`: Updated documentation.
+- `pyweatherflowrest`: Bumped to 0.1.8.
 
 ## [0.1.5] - 2021-11-18
 

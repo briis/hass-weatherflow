@@ -22,8 +22,15 @@ from homeassistant.const import (
     TEMP_CELSIUS,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.typing import StateType
 
-from .const import DOMAIN
+from .const import (
+    DOMAIN,
+    DEVICE_CLASS_LOCAL_BEAUFORT,
+    DEVICE_CLASS_LOCAL_TREND,
+    DEVICE_CLASS_LOCAL_WIND_CARDINAL,
+    DEVICE_CLASS_LOCAL_UV_DESCRIPTION,
+)
 from .entity import WeatherFlowEntity
 from .models import WeatherFlowEntryData
 
@@ -216,7 +223,6 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="lightning_strike_last_epoch",
         name="Last Lightning Strike",
         device_class=DEVICE_CLASS_TIMESTAMP,
-        state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         tempest_sensor=None,
     ),
@@ -326,7 +332,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="pressure_trend",
         name="Pressure Trend",
         icon="mdi:trending-up",
-        state_class=STATE_CLASS_MEASUREMENT,
+        device_class=DEVICE_CLASS_LOCAL_TREND,
         unit_type="none",
         tempest_sensor=None,
     ),
@@ -383,6 +389,30 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         tempest_sensor=True,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="uv_description",
+        name="UV Description",
+        icon="mdi:weather-sunny-alert",
+        device_class=DEVICE_CLASS_LOCAL_UV_DESCRIPTION,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="wind_cardinal",
+        name="Wind Cardinal",
+        icon="mdi:compass",
+        device_class=DEVICE_CLASS_LOCAL_WIND_CARDINAL,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="beaufort_description",
+        name="Beaufort Description",
+        icon="mdi:windsock",
+        device_class=DEVICE_CLASS_LOCAL_BEAUFORT,
+        unit_type="none",
+        tempest_sensor=None,
     ),
 )
 
@@ -456,8 +486,9 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
             ]
 
     @property
-    def native_value(self):
+    def native_value(self) -> StateType:
         """Return the state of the sensor."""
+
         return (
             getattr(self.coordinator.data, self.entity_description.key)
             if self.coordinator.data

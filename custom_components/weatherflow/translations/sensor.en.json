@@ -38,6 +38,15 @@
             "nw": "NW",
             "nnw": "NNW"
         },
+        "precip_intensity": {
+            "none": "None",
+            "very_light": "Very Light",
+            "light": "Light",
+            "moderate": "Moderate",
+            "heavy": "Heavy",
+            "very_heavy": "Very Heavy",
+            "extreme": "Extreme"
+        },
         "uv_description": {
             "extreme": "Extreme",
             "very-high": "Very High",

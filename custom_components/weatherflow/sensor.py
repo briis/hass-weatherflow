@@ -27,6 +27,7 @@ from homeassistant.helpers.typing import StateType
 from .const import (
     DOMAIN,
     DEVICE_CLASS_LOCAL_BEAUFORT,
+    DEVICE_CLASS_LOCAL_PRECIP_INTENSITY,
     DEVICE_CLASS_LOCAL_TREND,
     DEVICE_CLASS_LOCAL_WIND_CARDINAL,
     DEVICE_CLASS_LOCAL_UV_DESCRIPTION,
@@ -411,6 +412,14 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         name="Beaufort Description",
         icon="mdi:windsock",
         device_class=DEVICE_CLASS_LOCAL_BEAUFORT,
+        unit_type="none",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="precip_intensity",
+        name="Precipitation Intensity",
+        icon="mdi:weather-pouring",
+        device_class=DEVICE_CLASS_LOCAL_PRECIP_INTENSITY,
         unit_type="none",
         tempest_sensor=None,
     ),

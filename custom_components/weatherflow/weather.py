@@ -27,6 +27,7 @@ from pyweatherflowrest.data import (
 
 from .const import CONDITION_CLASSES, DOMAIN
 from .entity import WeatherFlowEntity
+from .models import WeatherFlowEntryData
 
 _WEATHER_DAILY = "weather_daily"
 _WEATHER_HOURLY = "weather_hourly"
@@ -57,11 +58,11 @@ async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities
 ) -> None:
     """Add a weather entity from a config_entry."""
-    entry_data = hass.data[DOMAIN][entry.entry_id]
-    weatherflowapi = entry_data["weatherflowapi"]
-    coordinator = entry_data["coordinator"]
-    forecast_coordinator = entry_data["forecast_coordinator"]
-    station_data: StationDescription = entry_data["station_data"]
+    entry_data: WeatherFlowEntryData = hass.data[DOMAIN][entry.entry_id]
+    weatherflowapi = entry_data.weatherflowapi
+    coordinator = entry_data.coordinator
+    forecast_coordinator = entry_data.forecast_coordinator
+    station_data = entry_data.station_data
 
     entities = []
     for description in WEATHER_TYPES:

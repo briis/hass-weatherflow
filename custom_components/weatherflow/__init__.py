@@ -40,6 +40,7 @@ from .const import (
     DOMAIN,
     WEATHERFLOW_PLATFORMS,
 )
+from .models import WeatherFlowEntryData
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -147,13 +148,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if not forecast_coordinator.last_update_success:
         raise ConfigEntryNotReady
 
-    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = {
-        "coordinator": coordinator,
-        "forecast_coordinator": forecast_coordinator,
-        "weatherflowapi": weatherflowapi,
-        "station_data": station_data,
-        "unit_descriptions": unit_descriptions,
-    }
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = WeatherFlowEntryData(
+        coordinator=coordinator,
+        forecast_coordinator=forecast_coordinator,
+        weatherflowapi=weatherflowapi,
+        station_data=station_data,
+        unit_descriptions=unit_descriptions,
+    )
 
     await _async_get_or_create_nvr_device_in_registry(hass, entry, station_data)
 

@@ -14,6 +14,7 @@ from pyweatherflowrest.data import StationDescription
 
 from .const import DOMAIN
 from .entity import WeatherFlowEntity
+from .models import WeatherFlowEntryData
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,11 +36,11 @@ async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities
 ) -> None:
     """Set up sensors for UniFi Protect integration."""
-    entry_data = hass.data[DOMAIN][entry.entry_id]
-    weatherflowapi = entry_data["weatherflowapi"]
-    coordinator = entry_data["coordinator"]
-    forecast_coordinator = entry_data["forecast_coordinator"]
-    station_data: StationDescription = entry_data["station_data"]
+    entry_data: WeatherFlowEntryData = hass.data[DOMAIN][entry.entry_id]
+    weatherflowapi = entry_data.weatherflowapi
+    coordinator = entry_data.coordinator
+    forecast_coordinator = entry_data.forecast_coordinator
+    station_data = entry_data.station_data
 
     entities = []
     for description in BINARY_SENSOR_TYPES:

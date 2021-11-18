@@ -12,6 +12,20 @@ There is currently support for the following device types within Home Assistant:
 * Binary Sensor
   * A few binary sensors will be available, that can be used to trigger automations, if f.ex. it starts raining.
 
+## Table of Contents
+
+1. [Installation](#installation)
+    * [HACS Installation](#hacs-installation)
+    * [Manuel Installation](#manuel-installation)
+2. [Configuration](#configuration)
+    * [Token for WeatherFlow](#token-for-weatherflow)
+    * [Station ID](#station-id)
+3. [Available Sensors](#available-sensors)
+4. [Available Binary Sensors](#available-binary-sensors)
+5. [Available Weather Entities](#available-weather-entities)
+6. [Enable Debug Logging](#enable-debug-logging)
+7. [Contribute to Development](#contribute-to-the-project-and-developing-with-a-devcontainer)
+
 ## Installation
 
 ### HACS installation
@@ -23,7 +37,7 @@ This Integration is not part of the default HACS store yet, but you can add it a
 
 You should now be able to find this Integration in HACS. (Most times you need to do a Hard Refresh of the browser before it shows up)
 
-### Manual installation
+### Manuel installation
 
 To add WeatherFlow to your installation, create this folder structure in your /config directory:
 
@@ -42,6 +56,26 @@ sensor.py
 weather.py
 translation (Directory with all files)
 ```
+
+## Configuration
+To add WeatherFlow Weather to your installation, do the following:
+- Go to *Configuration* and *Integrations*
+- Click the `+ ADD INTEGRATION` button in the lower right corner.
+- Search for WeatherFlow and click the integration.
+- When loaded, there will be a configuration box, where you have to enter your *Station ID* and a *Personal Token* to get access to your data. When entered click *Submit* and the Integration will loadd all the entities.
+
+If you want to change the update frequencies for the realtime data and forecast data, this can be done by clicking `CONFIGURE` in the lower left corner of the WeatherFlow integration..
+
+You can configure more than 1 instance of the Integration by using a different Station ID.
+
+### Token for WeatherFlow
+The WeatherFlow REST API requires a Token. Please [login with your account](https://tempestwx.com/settings/tokens) and create the token. Go to Settings and choose Data Authorizations (almost at the bottom). Create a personal access token and use that as Token (API key).
+
+**Please Note**: The Token you create here will ONLY work with Stations that are registered under the same Login.
+
+### Station ID
+Each WeatherFlow Station you setup, will get a unique Station ID, this id is needed during configuration. To get your Station ID, [login with your account](https://tempestwx.com/settings/stations/), select the station on the list, and then click *Status*. Here you will find your Station ID.
+
 ## Available Sensors
 
 Here is the list of sensors that the program generates. Calculated Sensor means, if No, then data comes directly from the Weather Station, if yes, it is a sensor that is derived from some of the other sensors.
@@ -113,4 +147,24 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | --- | --- | --- |
 | day_based_forecast | Day Based Forecast | A weather entity with Forecast for today and the next 9 days |
 | hourly_based_forecast | Hour Based Forecast | A weather entity with Forecast for the next 240 hours |
+
+## Enable Debug Logging
+
+If logs are needed for debugging or reporting an issue, use the following configuration.yaml:
+
+```yaml
+logger:
+  default: error
+  logs:
+    custom_components.weatherflow: debug
+```
+
+## CONTRIBUTE TO THE PROJECT AND DEVELOPING WITH A DEVCONTAINER
+
+1. Fork and clone the repository.
+2. Open in VSCode and choose to open in devcontainer. Must have VSCode devcontainer prerequisites.
+3. Run the command container start from VSCode terminal
+4. A fresh Home Assistant test instance will install and will eventually be running on port 9124 with this integration running
+5. When the container is running, go to http://localhost:9124 and the add WeatherFlow Weather from the Integration Page.
+
 

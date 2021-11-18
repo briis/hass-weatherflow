@@ -1,10 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [0.1.5] - Unreleased
+## [0.1.5] - 2021-11-18
 
 ### Added
 - `weatherflow`: Danish Language for config flow added.
+- `weatherflow`: Frontend Translations are now in place for non-standard text based sensors like Pressure Trend and Beaufort Description.
 
 ### Changed
 - `weatherflow`: Simplified Wind Conversion

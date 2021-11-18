@@ -173,9 +173,9 @@ logger:
 
 ### Frontend
 
-There are some sensors in this integration that provides a text as state. Example: `sensor.weatherflow_pressure_tend`, `sensor.weatherflow_uv_description` and `sensor.weatherflow_beaufort_description`.
+There are some sensors in this integration that provides a text as state which is not covered by the core Frontend translation. Example: `sensor.weatherflow_pressure_tend`, `sensor.weatherflow_uv_description` and `sensor.weatherflow_beaufort_description`.
 
-As default the text in the Frontend is displayed in english, but if you want to help translate these text in to a new language, please do the following:
+As default the text in the Frontend is displayed in english if your language is not present in this integration, but if you want to help translate these texts in to a new language, please do the following:
 - Go to the `translations` directory under `custom_components/weatherflow` and copy the file `sensor.en.json` to `sensor.YOUR_LANGUAGE_CODE.json` in a directory on your computer.
 - Edit the file and change all the descriptions to your language.
 - Make a Pull request in this Github and attach your new file.

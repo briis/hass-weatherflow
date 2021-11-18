@@ -96,6 +96,7 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | voltage_tempest | Voltage TEMPEST | The voltage on the TEMPEST unit (If present) | No |
 | battery_tempest | Battery TEMPEST | The battery level on the TEMPEST unit (If present) | Yes |
 | beaufort | Beaufort Scale | Beaufort scale is an empirical measure that relates wind speed to observed conditions at sea or on land | Yes ||
+| beaufort_description | Beaufort Description | A descriptive text for the current Beaufort level. | Yes ||
 | delta_t | Delta T | Difference between Air Temperature and Wet Bulb Temperature | No |
 | dewpoint | Dew Point | Dewpoint in degrees | No |
 | feelslike | Feels Like Temperature | The apparent temperature, a mix of Heat Index and Wind Chill | No |
@@ -109,6 +110,7 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | lightning_strike_last_epoch | Last Lightning Strike | When the last lightning strike occurred | No |
 | precip | Rain | reported the last minute | No |
 | precip_rate | Rain Rate | How much is it raining right now | Yes |
+| precip_intensity | Rain Intensity | A descriptive text of how much is it raining right now | Yes |
 | precip_accum_last_1hr | Rain in the last hour | Total rain accumulation for the last hour | No |
 | precip_accum_local_day | Rain Today | Total rain for the current day. (Reset at midnight) | No |
 | precip_accum_local_yesterday | Rain Yesterday | Total rain for yesterday (Reset at midnight) | No |
@@ -122,9 +124,11 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | brightness | Brightness | How much the incident light illuminates the surface | No |
 | solar_radiation | Solar Radiation | Electromagnetic radiation emitted by the sun | No |
 | uv | UV Index | The UV index | No |
+| uv_description | UV Description | A descriptive text for the current UV index | Yes |
 | visibility | Visibility | Distance to the horizon | Yes |
 | wind_avg | Wind Speed Avg | Average wind speed for the last minute | No |
 | wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |
+| wind_cardinal | Wind Cardinal | Current measured Wind bearing as text | Yes |
 | wind_gust | Wind Gust | Highest wind speed for the last minute | No |
 | wind_lull | Wind Lull | Lowest wind for the last minute | No |
 

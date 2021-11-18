@@ -96,9 +96,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         raise ConfigEntryNotReady from notreadyerror
 
     if entry.unique_id is None:
-        hass.config_entries.async_update_entry(
-            entry, unique_id=station_data.hub_serial_number
-        )
+        hass.config_entries.async_update_entry(entry, unique_id=station_data.key)
 
     async def async_update_data():
         """Obtain the latest data from WeatherFlow."""

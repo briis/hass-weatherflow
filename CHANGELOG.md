@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - `weatherflow`: Simplified Wind Conversion
+- `weatherflow`: Code cleanup
 - `pyweatherflowrest`: Bumped to 0.1.6. Moving from `pytz` to `dateutil` for timezones.
 
 ## [0.1.4] - 2021-11-17

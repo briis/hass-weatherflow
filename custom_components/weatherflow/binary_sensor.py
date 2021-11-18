@@ -9,8 +9,6 @@ from homeassistant.components.binary_sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from pyweatherflowrest.data import StationDescription
 
 from .const import DOMAIN
 from .entity import WeatherFlowEntity
@@ -69,9 +67,9 @@ class WeatherFlowBinarySensor(WeatherFlowEntity, BinarySensorEntity):
     def __init__(
         self,
         weatherflowapi,
-        coordinator: DataUpdateCoordinator,
-        forecast_coordinator: DataUpdateCoordinator,
-        station_data: StationDescription,
+        coordinator,
+        forecast_coordinator,
+        station_data,
         description: BinarySensorEntityDescription,
         entries: ConfigEntry,
     ):

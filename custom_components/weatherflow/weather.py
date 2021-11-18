@@ -18,11 +18,9 @@ from homeassistant.components.weather import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import TEMP_CELSIUS
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyweatherflowrest.data import (
     ForecastDailyDescription,
     ForecastHourlyDescription,
-    StationDescription,
 )
 
 from .const import CONDITION_CLASSES, DOMAIN
@@ -92,10 +90,10 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
     def __init__(
         self,
         weatherflowapi,
-        coordinator: DataUpdateCoordinator,
-        forecast_coordinator: DataUpdateCoordinator,
-        station_data: StationDescription,
-        description: WeatherEntityDescription,
+        coordinator,
+        forecast_coordinator,
+        station_data,
+        description,
         entries: ConfigEntry,
         is_metric: bool,
     ):

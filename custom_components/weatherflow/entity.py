@@ -7,11 +7,7 @@ import homeassistant.helpers.device_registry as dr
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ATTRIBUTION
 from homeassistant.helpers.entity import DeviceInfo, Entity
-from homeassistant.helpers.update_coordinator import (
-    CoordinatorEntity,
-    DataUpdateCoordinator,
-)
-from pyweatherflowrest.data import StationDescription
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DEFAULT_ATTRIBUTION, DEFAULT_BRAND, DOMAIN
 
@@ -24,9 +20,9 @@ class WeatherFlowEntity(CoordinatorEntity, Entity):
     def __init__(
         self,
         weatherflowapi,
-        coordinator: DataUpdateCoordinator,
-        forecast_coordinator: DataUpdateCoordinator,
-        station_data: StationDescription,
+        coordinator,
+        forecast_coordinator,
+        station_data,
         description,
         entries: ConfigEntry,
     ):

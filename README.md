@@ -25,6 +25,8 @@ There is currently support for the following device types within Home Assistant:
 5. [Available Weather Entities](#available-weather-entities)
 6. [Enable Debug Logging](#enable-debug-logging)
 7. [Contribute to Development](#contribute-to-the-project-and-developing-with-a-devcontainer)
+    * [Integration](#integration)
+    * [Frontend](#frontend)
 
 ## Installation
 
@@ -161,10 +163,21 @@ logger:
 
 ## CONTRIBUTE TO THE PROJECT AND DEVELOPING WITH A DEVCONTAINER
 
+### Integration
+
 1. Fork and clone the repository.
 2. Open in VSCode and choose to open in devcontainer. Must have VSCode devcontainer prerequisites.
 3. Run the command container start from VSCode terminal
 4. A fresh Home Assistant test instance will install and will eventually be running on port 9124 with this integration running
 5. When the container is running, go to http://localhost:9124 and the add WeatherFlow Weather from the Integration Page.
 
+### Frontend
 
+There are some sensors in this integration that provides a text as state. Example: `sensor.weatherflow_pressure_tend`, `sensor.weatherflow_uv_description` and `sensor.weatherflow_beaufort_description`.
+
+As default the text in the Frontend is displayed in english, but if you want to help translate these text in to a new language, please do the following:
+- Go to the `translations` directory under `custom_components/weatherflow` and copy the file `sensor.en.json` to `sensor.YOUR_LANGUAGE_CODE.json` in a directory on your computer.
+- Edit the file and change all the descriptions to your language.
+- Make a Pull request in this Github and attach your new file.
+
+The same procedure applies for the Configuration flow, follow the above procedure, just copy `en.json` to `YOUR_LANGUAGE_CODE.json`.

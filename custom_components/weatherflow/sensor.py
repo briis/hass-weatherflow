@@ -432,7 +432,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities
 ) -> None:
-    """Set up sensors for UniFi Protect integration."""
+    """Set up sensors for WeatherFlow integration."""
     entry_data: WeatherFlowEntryData = hass.data[DOMAIN][entry.entry_id]
     weatherflowapi = entry_data.weatherflowapi
     coordinator = entry_data.coordinator

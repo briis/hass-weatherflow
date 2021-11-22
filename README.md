@@ -64,7 +64,7 @@ To add WeatherFlow Weather to your installation, do the following:
 - Go to *Configuration* and *Integrations*
 - Click the `+ ADD INTEGRATION` button in the lower right corner.
 - Search for WeatherFlow and click the integration.
-- When loaded, there will be a configuration box, where you have to enter your *Station ID* and a *Personal Token* to get access to your data. When entered click *Submit* and the Integration will loadd all the entities.
+- When loaded, there will be a configuration box, where you have to enter your *Station ID* and a *Personal Token* to get access to your data. When entered click *Submit* and the Integration will load all the entities.
 
 If you want to change the update frequencies for the realtime data and forecast data, this can be done by clicking `CONFIGURE` in the lower left corner of the WeatherFlow integration..
 
@@ -88,7 +88,7 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | --- | --- | --- | --- |
 | absolute_humidity | Absolute Humidity | The amount of water per volume of air | Yes |
 | air_density | Air Density | The Air density | No |
-| air_temperature | Temperature | Outside Temperature | No |
+| air_temperature | Air Temperature | Outside Temperature | No |
 | voltage_air | Voltage AIR | The voltage on the AIR unit (If present) | No |
 | battery_air | Battery AIR | The battery level on the AIR unit (If present) | Yes |
 | voltage_sky | Voltage SKY | voltage on the SKY unit (If present) | No |

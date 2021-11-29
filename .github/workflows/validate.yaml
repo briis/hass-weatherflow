@@ -2,6 +2,9 @@ name: HACS Action
 
 on:
   push:
+    paths-ignore:
+      - '**/README.md'
+      - '**/CHANGELOG.md'
   pull_request:
   schedule:
     - cron: "0 0 * * *"

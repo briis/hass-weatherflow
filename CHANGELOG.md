@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - `weatherflow`: Re-factoring of the code base.
+- `weatherflow`:Redesigning the development container and environment.
 - `pyweatherflowrest`: Bumped to 0.1.10.
 
 ## [0.1.6] - 2021-11-18

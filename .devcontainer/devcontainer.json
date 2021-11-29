@@ -1,12 +1,11 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
-	"name": "Home Assistant WeatherFlow Development",
-	"image": "ghcr.io/ludeeus/devcontainer/integration:stable",
+	"name": "HA weatherflow",
+	"dockerFile": "Dockerfile",
 	"context": "..",
 	"appPort": [
-		"9124:8123"
+		"9124:9124"
 	],
-	"postCreateCommand": "container install",
 	"runArgs": [
 		"-v",
 		"${env:HOME}${env:USERPROFILE}/.ssh:/tmp/.ssh" // This is added so you can push from inside the container
@@ -20,7 +19,7 @@
 	"settings": {
 		"files.eol": "\n",
 		"editor.tabSize": 4,
-		"terminal.integrated.shell.linux": "/bin/bash",
+		"terminal.integrated.defaultProfile.linux": "bash",
 		"python.pythonPath": "/usr/local/python/bin/python",
 		"python.analysis.autoSearchPaths": false,
 		"python.linting.pylintEnabled": true,

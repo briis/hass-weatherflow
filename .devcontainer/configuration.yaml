@@ -1,7 +1,13 @@
 default_config:
 
+debugpy:
+  start: false
+
+http:
+  server_port: 9124
 
 logger:
-  default: error
+  default: warning
   logs:
+    pyweatherflow: debug
     custom_components.weatherflow: debug

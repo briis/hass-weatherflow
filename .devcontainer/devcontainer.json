@@ -14,7 +14,8 @@
 		"ms-python.python",
 		"github.vscode-pull-request-github",
 		"ryanluker.vscode-coverage-gutters",
-		"ms-python.vscode-pylance"
+		"ms-python.vscode-pylance",
+		"kevinglasson.cornflakes-linter"
 	],
 	"settings": {
 		"files.eol": "\n",

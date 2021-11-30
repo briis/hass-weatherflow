@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.8] - 2021-11-30
+
+## Fixed
+- Issue #2, error occurs with some users when trying to retrieve precip_icon and precip_type from forecast. Both data points have been removed, as they are not used in this Integration.
+
 ## [0.1.7] - 2021-11-29
 
 ### Changed

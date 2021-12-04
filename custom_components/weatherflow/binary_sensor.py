@@ -27,6 +27,11 @@ BINARY_SENSOR_TYPES: tuple[BinarySensorEntityDescription, ...] = (
         name="Is Raining",
         icon="mdi:water-percent-alert",
     ),
+    BinarySensorEntityDescription(
+        key="is_lightning",
+        name="Is Lightning",
+        icon="mdi:flash-alert",
+    ),
 )
 
 

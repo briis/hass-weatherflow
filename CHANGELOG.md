@@ -1,6 +1,19 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.9] - Unreleased
+
+### Added
+
+- Issue #3, New binary sensor called `is_lightning` added. Is True if lightning strokes have occurred within the last minute.
+- Issue #4, Wind sensors will always be in m/s if Metric or mph if Imperial unit system. Now there is 2 extra sensors for each wind sensor that display the value in km/h or knots.
+- Issue #7, Dutch Language Translation for Config Flow. Thanks to @dhover.
+
+### Fixed
+
+- Issue #6, For unknown reasons one specific data point was missing in the returned data from WeatherFlow. The error can not be replicated, but to ensure the system does not stop, we will no just return an empty value.
+
+
 ## [0.1.8] - 2021-11-30
 
 ## Fixed

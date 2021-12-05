@@ -127,10 +127,16 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | uv_description | UV Description | A descriptive text for the current UV index | Yes |
 | visibility | Visibility | Distance to the horizon | Yes |
 | wind_avg | Wind Speed Avg | Average wind speed for the last minute | No |
+| wind_avg_kmh | Wind Speed Avg (km/h) | Average wind speed for the last minute in km/h | No |
+| wind_avg_knots | Wind Speed Avg (knots) | Average wind speed for the last minute in knots | No |
 | wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |
 | wind_cardinal | Wind Cardinal | Current measured Wind bearing as text | Yes |
 | wind_gust | Wind Gust | Highest wind speed for the last minute | No |
+| wind_gust_kmh | Wind Gust (km/h) | Highest wind speed for the last minute in km/h | No |
+| wind_gust_knots | Wind Gust (knots) | Highest wind speed for the last minute in knots | No |
 | wind_lull | Wind Lull | Lowest wind for the last minute | No |
+| wind_lull_kmh | Wind Lull (km/h) | Lowest wind for the last minute in km/h | No |
+| wind_lull_knots | Wind Lull (knots) | Lowest wind for the last minute in knots | No |
 
 ## Available Binary Sensors
 
@@ -141,6 +147,7 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | Sensor ID   | Name   | Description   |
 | --- | --- | --- |
 | is_freezing | Is Freezing | Is the Temperature below freezing point |
+| is_lightning | Is Lightning | Has lighning strikes occured within the last minute |
 | is_raining | Is Raining | Is it raining outside |
 
 ## Available Weather Entities

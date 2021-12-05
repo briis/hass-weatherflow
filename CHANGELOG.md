@@ -1,11 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [0.1.10] - Unreleased
+## [0.1.10] - 2012-12-05
 
 ### Added
 
-- Issue #7, Dutch Language Translation for Sensor Values. Thanks to @dhover.
+- Issue #7. Dutch Language Translation for Sensor Values. Thanks to @dhover.
+
+### Fixed
+
+- Issue #8. Fixing crash when some data fields not present in result data.
 
 
 ## [0.1.9] - 2021-12-05

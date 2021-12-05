@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.10] - Unreleased
+
+### Added
+
+- Issue #7, Dutch Language Translation for Sensor Values. Thanks to @dhover.
+
+
 ## [0.1.9] - 2021-12-05
 
 ### Added

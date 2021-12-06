@@ -12,6 +12,11 @@ All notable changes to this project will be documented in this file.
 - Changed miles per hour unit to mph, to be in line with standard Home Assistant
 - Bumped `pyweatherflowrest` to 0.1.14
 
+### Added
+
+- Italian translation for Config Flow and Sensors. Thanks to @alexdelprete.
+
+
 ## [0.1.10] - 2012-12-05
 
 ### Added

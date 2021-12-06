@@ -75,6 +75,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         entry.data[CONF_STATION_ID],
         entry.data[CONF_API_TOKEN],
         units=unit_system,
+        homeassistant=True,
         session=session,
     )
 

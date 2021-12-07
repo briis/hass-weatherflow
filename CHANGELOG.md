@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 - Update intervals where not saved between runs.
 - Forecast data was never updated, only loaded on startup.
 - Issue #11. DeltaT values where wrong when using Imperial Units.
-- Issue #11. Air Density Values were worng when using Imperial Units.
+- Issue #11. Air Density Values were wrong when using Imperial Units.
 
 ### Changed
 

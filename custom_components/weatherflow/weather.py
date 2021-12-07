@@ -162,10 +162,10 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
         """Return the forecast array."""
         data = []
         if self.daily_forecast:
-            forecast_data: ForecastDailyDescription = getattr(
+            forecast_data_daily: ForecastDailyDescription = getattr(
                 self.forecast_coordinator.data, "forecast_daily"
             )
-            for item in forecast_data:
+            for item in forecast_data_daily:
                 data.append(
                     {
                         ATTR_FORECAST_TIME: item.utc_time,
@@ -180,10 +180,10 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
                 )
             return data
 
-        forecast_data: ForecastHourlyDescription = getattr(
+        forecast_data_hourly: ForecastHourlyDescription = getattr(
             self.forecast_coordinator.data, "forecast_hourly"
         )
-        for item in forecast_data:
+        for item in forecast_data_hourly:
             data.append(
                 {
                     ATTR_FORECAST_TIME: item.utc_time,

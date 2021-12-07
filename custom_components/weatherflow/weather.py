@@ -106,6 +106,7 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
             description,
             entries,
         )
+        self._attr_available = self.forecast_coordinator.last_update_success
         self.daily_forecast = self.entity_description.key in _WEATHER_DAILY
         self._is_metric = is_metric
         self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
@@ -113,12 +114,12 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
     @property
     def condition(self):
         """Return the current condition."""
-        return format_condition(self.forecast_coordinator.data.icon)
+        return format_condition(getattr(self.forecast_coordinator.data, "icon"))
 
     @property
     def temperature(self):
         """Return the temperature."""
-        return self.coordinator.data.air_temperature
+        return getattr(self.coordinator.data, "air_temperature")
 
     @property
     def temperature_unit(self):
@@ -128,41 +129,41 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
     @property
     def humidity(self):
         """Return the humidity."""
-        return self.coordinator.data.relative_humidity
+        return getattr(self.coordinator.data, "relative_humidity")
 
     @property
     def pressure(self):
         """Return the pressure."""
-        return self.coordinator.data.sea_level_pressure
+        return getattr(self.coordinator.data, "sea_level_pressure")
 
     @property
     def wind_speed(self):
         """Return the wind speed."""
-        if self.coordinator.data.wind_avg is None:
+        if getattr(self.coordinator.data, "wind_avg") is None:
             return None
 
         if self._is_metric:
-            return int(round(self.coordinator.data.wind_avg * 3.6))
+            return int(round(getattr(self.coordinator.data, "wind_avg") * 3.6))
 
-        return int(round(self.coordinator.data.wind_avg))
+        return int(round(getattr(self.coordinator.data, "wind_avg")))
 
     @property
     def wind_bearing(self):
         """Return the wind bearing."""
-        return self.coordinator.data.wind_direction
+        return getattr(self.coordinator.data, "wind_direction")
 
     @property
     def visibility(self):
         """Return the visibility."""
-        return self.coordinator.data.visibility
+        return getattr(self.coordinator.data, "visibility")
 
     @property
     def forecast(self):
         """Return the forecast array."""
         data = []
         if self.daily_forecast:
-            forecast_data: ForecastDailyDescription = (
-                self.forecast_coordinator.data.forecast_daily
+            forecast_data: ForecastDailyDescription = getattr(
+                self.forecast_coordinator.data, "forecast_daily"
             )
             for item in forecast_data:
                 data.append(
@@ -179,8 +180,8 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
                 )
             return data
 
-        forecast_data: ForecastHourlyDescription = (
-            self.forecast_coordinator.data.forecast_hourly
+        forecast_data: ForecastHourlyDescription = getattr(
+            self.forecast_coordinator.data, "forecast_hourly"
         )
         for item in forecast_data:
             data.append(

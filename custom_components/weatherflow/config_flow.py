@@ -125,13 +125,13 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                 {
                     vol.Optional(
                         CONF_INTERVAL_OBSERVATION,
-                        default=self.config_entry.data.get(
+                        default=self.config_entry.options.get(
                             CONF_INTERVAL_OBSERVATION, DEFAULT_OBSERVATION_INTERVAL
                         ),
                     ): vol.All(vol.Coerce(int), vol.Range(min=1, max=30)),
                     vol.Optional(
                         CONF_INTERVAL_FORECAST,
-                        default=self.config_entry.data.get(
+                        default=self.config_entry.options.get(
                             CONF_INTERVAL_FORECAST, DEFAULT_FORECAST_INTERVAL
                         ),
                     ): vol.All(vol.Coerce(int), vol.Range(min=15, max=120)),

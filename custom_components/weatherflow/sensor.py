@@ -361,10 +361,8 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
     WeatherFlowSensorEntityDescription(
         key="delta_t",
         name="Delta T",
-        device_class=DEVICE_CLASS_TEMPERATURE,
-        native_unit_of_measurement=TEMP_CELSIUS,
         state_class=STATE_CLASS_MEASUREMENT,
-        unit_type="none",
+        unit_type="temperature",
         tempest_sensor=None,
     ),
     WeatherFlowSensorEntityDescription(

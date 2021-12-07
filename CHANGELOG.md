@@ -1,6 +1,21 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.12] - Unreleased
+
+### Fixed
+
+- Issue #12. If no wind values where supplied - typically when the Tempest unit is saving battery - the integration would crash on startup.
+- Update intervals where not saved between runs.
+- Forecast data was never updated, only loaded on startup.
+- Issue #11. DeltaT values where wrong when using Imperial Units.
+- Issue #11. Air Density Values were worng when using Imperial Units.
+
+### Changed
+
+- Issue #11. All Barometric values are now returned with 3 decimals when using Imperial units.
+
+
 ## [0.1.11] - 2012-12-06
 
 ### Fixed

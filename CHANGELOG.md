@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.13] - Unreleased
+
+### Fixed
+
+- Issue #13. Added 5 decimals to Air Density, for both Metric and Imperial units.
+
+
 ## [0.1.12] - 2021-12-07
 
 ### Fixed

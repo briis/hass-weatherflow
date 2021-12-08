@@ -12,6 +12,7 @@ from homeassistant.components.weather import (
     ATTR_FORECAST_TIME,
     ATTR_FORECAST_WIND_BEARING,
     ATTR_FORECAST_WIND_SPEED,
+    Forecast,
     WeatherEntity,
     WeatherEntityDescription,
 )
@@ -160,7 +161,7 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
     @property
     def forecast(self):
         """Return the forecast array."""
-        data = []
+        data: Forecast = []
         if self.daily_forecast:
             forecast_data_daily: ForecastDailyDescription = getattr(
                 self.forecast_coordinator.data, "forecast_daily"
@@ -180,6 +181,7 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
                 )
             return data
 
+        data: Forecast = []
         forecast_data_hourly: ForecastHourlyDescription = getattr(
             self.forecast_coordinator.data, "forecast_hourly"
         )

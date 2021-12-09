@@ -95,6 +95,7 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | battery_sky | Battery SKY | The battery level on the SKY unit (If present) | Yes |
 | voltage_tempest | Voltage TEMPEST | The voltage on the TEMPEST unit (If present) | No |
 | battery_tempest | Battery TEMPEST | The battery level on the TEMPEST unit (If present) | Yes |
+| battery_mode_tempest | Battery Mode TEMPEST | How the Tempest device operates with the current Voltage | Yes |
 | beaufort | Beaufort Scale | Beaufort scale is an empirical measure that relates wind speed to observed conditions at sea or on land | Yes ||
 | beaufort_description | Beaufort Description | A descriptive text for the current Beaufort level. | Yes ||
 | delta_t | Delta T | Difference between Air Temperature and Wet Bulb Temperature | No |

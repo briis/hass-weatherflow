@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [0.1.13] - Unreleased
+## [0.1.13] - 2021-12-09
 
 ### Fixed
 

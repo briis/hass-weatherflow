@@ -447,6 +447,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
     WeatherFlowSensorEntityDescription(
         key="battery_mode",
         name="Battery Mode",
+        icon="mdi:battery-charging-high",
         unit_type="none",
         tempest_sensor=True,
     ),

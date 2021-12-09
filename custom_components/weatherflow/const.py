@@ -2,6 +2,8 @@
 
 DOMAIN = "weatherflow"
 
+ATTR_DESCRIPTION = "description"
+
 CONDITION_CLASSES = {
     "clear-night": ["clear-night"],
     "cloudy": ["cloudy"],

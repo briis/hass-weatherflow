@@ -25,6 +25,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import StateType
 
 from .const import (
+    ATTR_DESCRIPTION,
     DOMAIN,
     DEVICE_CLASS_LOCAL_BEAUFORT,
     DEVICE_CLASS_LOCAL_PRECIP_INTENSITY,
@@ -444,6 +445,12 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         tempest_sensor=True,
     ),
     WeatherFlowSensorEntityDescription(
+        key="battery_mode",
+        name="Battery Mode",
+        unit_type="none",
+        tempest_sensor=True,
+    ),
+    WeatherFlowSensorEntityDescription(
         key="uv_description",
         name="UV Description",
         icon="mdi:weather-sunny-alert",
@@ -555,3 +562,15 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
             if self.coordinator.data
             else None
         )
+
+    @property
+    def extra_state_attributes(self):
+        """Return the sensor state attributes."""
+        if self.entity_description.key == "battery_mode":
+            return {
+                **super().extra_state_attributes,
+                ATTR_DESCRIPTION: getattr(
+                    self.coordinator.data, "battery_mode_description"
+                ),
+            }
+        return super().extra_state_attributes

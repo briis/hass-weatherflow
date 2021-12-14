@@ -1,14 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [0.1.14] - Unreleased
+## [0.1.14] - 2021-12-14
 
 ### Added
 
 - A new sensor called `battery_mode` is added. This sensor reports a mode between 0 and 3, and the description for the mode is added as an attribute to the sensor. Basically it shows how the Tempest device operates with the current Voltage. You can read more about this on the [WeatherFlow Website](https://help.weatherflow.com/hc/en-us/articles/360048877194-Solar-Power-Rechargeable-Battery). **This sensor is only available for Tempest devices**
 
 ### Changed
-- Issue #14. Introducing better handling of error when dataset returned from WeatherFlow is empty. Can happen if the station has been offline for a while.
+- Closing issue #14. Introducing better handling of error when dataset returned from WeatherFlow is empty. Can happen if the station has been offline for a while.
 
 
 ## [0.1.13] - 2021-12-09

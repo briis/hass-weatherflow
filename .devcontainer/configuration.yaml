@@ -9,5 +9,5 @@ http:
 logger:
   default: warning
   logs:
-    pyweatherflow: debug
+    pyweatherflowrest: debug
     custom_components.weatherflow: debug

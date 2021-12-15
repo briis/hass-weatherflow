@@ -121,6 +121,7 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | pressure_trend | Pressure Trend | Returns Steady, Falling or Rising determined by the rate of change over the past 3 hours| No |
 | barometric_pressure | Barometric Pressure | The Barometric pressure | No |
 | sealevel_pressure | Station Pressure | Preasure measurement at Sea Level | No |
+| station_information | Station Information | Attributes show data about the physical devices present | No |
 | station_pressure | Station Pressure | Pressure measurement where the station is located | No |
 | brightness | Brightness | How much the incident light illuminates the surface | No |
 | solar_radiation | Solar Radiation | Electromagnetic radiation emitted by the sun | No |

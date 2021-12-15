@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 
 from homeassistant.components.sensor import (
     STATE_CLASS_MEASUREMENT,
@@ -483,6 +483,13 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         unit_type="none",
         tempest_sensor=None,
     ),
+    WeatherFlowSensorEntityDescription(
+        key="station_name",
+        name="Station Information",
+        icon="mdi:hubspot",
+        unit_type="none",
+        tempest_sensor=None,
+    ),
 )
 
 
@@ -573,5 +580,10 @@ class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
                 ATTR_DESCRIPTION: getattr(
                     self.coordinator.data, "battery_mode_description"
                 ),
+            }
+        if self.entity_description.key == "station_name":
+            return {
+                **super().extra_state_attributes,
+                ATTR_DESCRIPTION: asdict(self.station_data),
             }
         return super().extra_state_attributes

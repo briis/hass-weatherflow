@@ -9,6 +9,8 @@ from homeassistant.const import ATTR_ATTRIBUTION
 from homeassistant.helpers.entity import DeviceInfo, Entity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
+from pyweatherflowrest.data import StationDescription
+
 from .const import DEFAULT_ATTRIBUTION, DEFAULT_BRAND, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
@@ -22,7 +24,7 @@ class WeatherFlowEntity(Entity):
         weatherflowapi,
         coordinator: DataUpdateCoordinator,
         forecast_coordinator: DataUpdateCoordinator,
-        station_data,
+        station_data: StationDescription,
         description,
         entries: ConfigEntry,
     ):

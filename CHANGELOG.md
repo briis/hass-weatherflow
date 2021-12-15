@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.15] - Unreleased
+
+### Added
+
+- A new sensor called `station_information` is added. This sensor shows the name of the Station as state, and then has all the data about the station and attached devices in the attributes. Similar to the `station_name` in the SmartWeather integration.
+
+### Changed
+
+- Fixing issue #15, where Home Assistant sometimes added a warning about to long an update time for the Hourly forecast. The number of hours has now been reduced to the next 48 hours, instead of the next 240 hours.
+
 ## [0.1.14] - 2021-12-14
 
 ### Added

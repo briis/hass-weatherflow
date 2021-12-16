@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - A new sensor called `station_information` is added. This sensor shows the name of the Station as state, and then has all the data about the station and attached devices in the attributes. Similar to the `station_name` in the SmartWeather integration.
+- New sensors `precipitation_duration_yesterday_rain_checked`, `precipitation_yesterday_rain_checked`, `precipitation_today_rain_checked`. These values will only appear for stations located in the US, as they are depended on *Rain Check* and that only works in the US. Holding calibated precipitation data.
 
 ### Changed
 

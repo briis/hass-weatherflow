@@ -163,7 +163,7 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | Sensor ID   | Name   | Description   |
 | --- | --- | --- |
 | day_based_forecast | Day Based Forecast | A weather entity with Forecast for today and the next 9 days |
-| hourly_based_forecast | Hour Based Forecast | A weather entity with Forecast for the next 240 hours |
+| hourly_based_forecast | Hourly Based Forecast | A weather entity with Forecast for the next 48 hours |
 
 ## Enable Debug Logging
 

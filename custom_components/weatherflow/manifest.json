@@ -8,7 +8,7 @@
         "pyweatherflowrest==0.1.20"
     ],
     "dependencies": [],
-    "version": "0.1.16",
+    "version": "0.1.15",
     "codeowners": [
         "@briis"
     ],

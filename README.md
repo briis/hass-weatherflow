@@ -80,7 +80,7 @@ Each WeatherFlow Station you setup, will get a unique Station ID, this id is nee
 
 ## Available Sensors
 
-Here is the list of sensors that the program generates. Calculated Sensor means, if No, then data comes directly from the Weather Station, if yes, it is a sensor that is derived from some of the other sensors.
+Here is the list of sensors that the program generates. Calculated Sensor means, if No, then data comes directly from the Weather Station, if yes, it is a sensor that is derived from some of the other sensors. Not all sensors show up on all installations. It depends on the Physical Device you have and where in the world your station is located.
 
 All entities are prefixed with `weatherflow_` and names are prefixed with `Weatherflow`
 
@@ -89,50 +89,52 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | absolute_humidity | Absolute Humidity | The amount of water per volume of air | Yes |
 | air_density | Air Density | The Air density | No |
 | air_temperature | Air Temperature | Outside Temperature | No |
-| voltage_air | Voltage AIR | The voltage on the AIR unit (If present) | No |
+| barometric_pressure | Barometric Pressure | The Barometric pressure | No |
 | battery_air | Battery AIR | The battery level on the AIR unit (If present) | Yes |
-| voltage_sky | Voltage SKY | voltage on the SKY unit (If present) | No |
 | battery_sky | Battery SKY | The battery level on the SKY unit (If present) | Yes |
-| voltage_tempest | Voltage TEMPEST | The voltage on the TEMPEST unit (If present) | No |
 | battery_tempest | Battery TEMPEST | The battery level on the TEMPEST unit (If present) | Yes |
 | battery_mode_tempest | Battery Mode TEMPEST | How the Tempest device operates with the current Voltage | Yes |
 | beaufort | Beaufort Scale | Beaufort scale is an empirical measure that relates wind speed to observed conditions at sea or on land | Yes ||
 | beaufort_description | Beaufort Description | A descriptive text for the current Beaufort level. | Yes ||
+| brightness | Brightness | How much the incident light illuminates the surface | No |
 | delta_t | Delta T | Difference between Air Temperature and Wet Bulb Temperature | No |
 | dewpoint | Dew Point | Dewpoint in degrees | No |
 | feelslike | Feels Like Temperature | The apparent temperature, a mix of Heat Index and Wind Chill | No |
 | heat_index | Heat Index | How warm does it feel? | No |
-| wind_chill | Wind Chill | How cold does it feel? | No |
-| wet_bulb_temperature | Wet Bulb Temperature | Temperature of a parcel of air cooled to saturation (100% relative humidity) | No |
+| last_lightning_strike | Last Lightning Strike | When the last lightning strike occurred | No |
+| last_lightning_strike_distance | Lightning Distance | Distance of the last strike | No |
 | lightning_strike_count | Lightning Count | Number of lightning strikes in the last minute | No |
-| lightning_strike_count_1hr | Lightning Count (Last hour) | Number of lightning strikes during the last hour | No |
-| lightning_strike_count_3hr | Lightning Count (3 hours) | Number of lightning strikes the last 3 hours | No |
-| lightning_strike_last_distance | Lightning Distance | Distance of the last strike | No |
-| lightning_strike_last_epoch | Last Lightning Strike | When the last lightning strike occurred | No |
+| lightning_strike_count_last_3_hours | Lightning Count (3 hours) | Number of lightning strikes the last 3 hours | No |
+| lightning_strike_count_last_hour | Lightning Count (Last hour) | Number of lightning strikes during the last hour | No |
+| precipitation_duration_today | Rain Duration (Today) | Total rain minutes for the current day. (Reset at midnight) | No |
+| precipitation_duration_yesterday | Rain Duration (Yesterday) | Total rain minutes yesterday | No |
+| precipitation_duration_yesterday_rain_checked | Rain Duration (Yesterday) Only if Rain Check enabled and in the US | Total rain minutes yesterday | No |
 | precip | Rain | reported the last minute | No |
 | precip_rate | Rain Rate | How much is it raining right now | Yes |
 | precip_intensity | Rain Intensity | A descriptive text of how much is it raining right now | Yes |
 | precip_accum_last_1hr | Rain in the last hour | Total rain accumulation for the last hour | No |
 | precip_accum_local_day | Rain Today | Total rain for the current day. (Reset at midnight) | No |
+| precip_accum_local_day | Rain Today | Total rain for the current day. (Reset at midnight) | No |
 | precip_accum_local_yesterday | Rain Yesterday | Total rain for yesterday (Reset at midnight) | No |
-| precip_minutes_local_day | Rain Duration (Today) | Total rain minutes for the current day. (Reset at midnight) | No |
-| precip_minutes_local_yesterday | Rain Duration (Yesterday) | Total rain minutes yesterday | No |
 | relative_humidity | Humidity | Relative Humidity | No |
 | pressure_trend | Pressure Trend | Returns Steady, Falling or Rising determined by the rate of change over the past 3 hours| No |
-| barometric_pressure | Barometric Pressure | The Barometric pressure | No |
 | sealevel_pressure | Station Pressure | Preasure measurement at Sea Level | No |
 | station_information | Station Information | Attributes show data about the physical devices present | No |
 | station_pressure | Station Pressure | Pressure measurement where the station is located | No |
-| brightness | Brightness | How much the incident light illuminates the surface | No |
 | solar_radiation | Solar Radiation | Electromagnetic radiation emitted by the sun | No |
 | uv | UV Index | The UV index | No |
 | uv_description | UV Description | A descriptive text for the current UV index | Yes |
 | visibility | Visibility | Distance to the horizon | Yes |
+| voltage_air | Voltage AIR | The voltage on the AIR unit (If present) | No |
+| voltage_sky | Voltage SKY | voltage on the SKY unit (If present) | No |
+| voltage_tempest | Voltage TEMPEST | The voltage on the TEMPEST unit (If present) | No |
+| wet_bulb_temperature | Wet Bulb Temperature | Temperature of a parcel of air cooled to saturation (100% relative humidity) | No |
 | wind_avg | Wind Speed Avg | Average wind speed for the last minute | No |
 | wind_avg_kmh | Wind Speed Avg (km/h) | Average wind speed for the last minute in km/h | No |
 | wind_avg_knots | Wind Speed Avg (knots) | Average wind speed for the last minute in knots | No |
 | wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |
 | wind_cardinal | Wind Cardinal | Current measured Wind bearing as text | Yes |
+| wind_chill | Wind Chill | How cold does it feel? | No |
 | wind_gust | Wind Gust | Highest wind speed for the last minute | No |
 | wind_gust_kmh | Wind Gust (km/h) | Highest wind speed for the last minute in km/h | No |
 | wind_gust_knots | Wind Gust (knots) | Highest wind speed for the last minute in knots | No |

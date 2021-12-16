@@ -536,7 +536,7 @@ async def async_setup_entry(
         if (
             description.tempest_sensor is None
             or description.tempest_sensor is station_data.is_tempest
-        ):
+        ) and getattr(coordinator.data, description.key) is not None:
             entities.append(
                 WeatherFlowSensor(
                     weatherflowapi,

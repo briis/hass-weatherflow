@@ -109,38 +109,38 @@ All entities are prefixed with `weatherflow_` and names are prefixed with `Weath
 | precipitation_duration_today | Rain Duration (Today) | Total rain minutes for the current day. (Reset at midnight) | No |
 | precipitation_duration_yesterday | Rain Duration (Yesterday) | Total rain minutes yesterday | No |
 | precipitation_duration_yesterday_rain_checked | Rain Duration (Yesterday) Only if Rain Check enabled and in the US | Total rain minutes yesterday | No |
-| precip | Rain | reported the last minute | No |
-| precip_rate | Rain Rate | How much is it raining right now | Yes |
 | precip_intensity | Rain Intensity | A descriptive text of how much is it raining right now | Yes |
-| precip_accum_last_1hr | Rain in the last hour | Total rain accumulation for the last hour | No |
-| precip_accum_local_day | Rain Today | Total rain for the current day. (Reset at midnight) | No |
-| precip_accum_local_day | Rain Today | Total rain for the current day. (Reset at midnight) | No |
-| precip_accum_local_yesterday | Rain Yesterday | Total rain for yesterday (Reset at midnight) | No |
-| relative_humidity | Humidity | Relative Humidity | No |
+| precipitation_last_hour | Rain in the last hour | Total rain accumulation for the last hour | No |
+| precipitation_rate | Rain Rate | How much is it raining right now | Yes |
+| precipitation_today | Rain Today | Total rain for the current day. (Reset at midnight) | No |
+| precipitation_today_rain_checked | Rain Today | Total rain for the current day. (Reset at midnight) Only if Rain Check enabled and in the US | No |
+| precipitation_yesterday | Rain Yesterday | Total rain for yesterday (Reset at midnight) | No |
+| precipitation_yesterday_rain_checked | Rain Yesterday | Total rain for yesterday (Reset at midnight) Only if Rain Check enabled and in the US | No |
 | pressure_trend | Pressure Trend | Returns Steady, Falling or Rising determined by the rate of change over the past 3 hours| No |
-| sealevel_pressure | Station Pressure | Preasure measurement at Sea Level | No |
+| relative_humidity | Humidity | Relative Humidity | No |
+| sea_level_pressure | Station Pressure | Preasure measurement at Sea Level | No |
+| solar_radiation | Solar Radiation | Electromagnetic radiation emitted by the sun | No |
 | station_information | Station Information | Attributes show data about the physical devices present | No |
 | station_pressure | Station Pressure | Pressure measurement where the station is located | No |
-| solar_radiation | Solar Radiation | Electromagnetic radiation emitted by the sun | No |
-| uv | UV Index | The UV index | No |
 | uv_description | UV Description | A descriptive text for the current UV index | Yes |
+| uv_index | UV Index | The UV index | No |
 | visibility | Visibility | Distance to the horizon | Yes |
 | voltage_air | Voltage AIR | The voltage on the AIR unit (If present) | No |
 | voltage_sky | Voltage SKY | voltage on the SKY unit (If present) | No |
 | voltage_tempest | Voltage TEMPEST | The voltage on the TEMPEST unit (If present) | No |
 | wet_bulb_temperature | Wet Bulb Temperature | Temperature of a parcel of air cooled to saturation (100% relative humidity) | No |
-| wind_avg | Wind Speed Avg | Average wind speed for the last minute | No |
-| wind_avg_kmh | Wind Speed Avg (km/h) | Average wind speed for the last minute in km/h | No |
-| wind_avg_knots | Wind Speed Avg (knots) | Average wind speed for the last minute in knots | No |
-| wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |
 | wind_cardinal | Wind Cardinal | Current measured Wind bearing as text | Yes |
 | wind_chill | Wind Chill | How cold does it feel? | No |
+| wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |
 | wind_gust | Wind Gust | Highest wind speed for the last minute | No |
 | wind_gust_kmh | Wind Gust (km/h) | Highest wind speed for the last minute in km/h | No |
 | wind_gust_knots | Wind Gust (knots) | Highest wind speed for the last minute in knots | No |
 | wind_lull | Wind Lull | Lowest wind for the last minute | No |
 | wind_lull_kmh | Wind Lull (km/h) | Lowest wind for the last minute in km/h | No |
 | wind_lull_knots | Wind Lull (knots) | Lowest wind for the last minute in knots | No |
+| wind_speed | Wind Speed Avg | Average wind speed for the last minute | No |
+| wind_speed_kmh | Wind Speed Avg (km/h) | Average wind speed for the last minute in km/h | No |
+| wind_speed_knots | Wind Speed Avg (knots) | Average wind speed for the last minute in knots | No |
 
 ## Available Binary Sensors
 

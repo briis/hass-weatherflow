@@ -173,6 +173,7 @@ If logs are needed for debugging or reporting an issue, use the following config
 logger:
   default: error
   logs:
+    pyweatherflowrest: debug
     custom_components.weatherflow: debug
 ```
 

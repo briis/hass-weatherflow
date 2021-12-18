@@ -1,7 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [0.1.15] - Unreleased
+## [0.1.16] - Unreleased
+
+### Added
+
+- Issue #16. Option to configurate how many hours are loaded for the Hourly based forecast. Minimum is 24 hours, maximum 240 hours and default is 48 hours. Go to the Integration page and click on CONFIGURE on the WeatherFlow integration, and then pull the slider to the hours you want.
+
+## [0.1.15] - 2021-12-16
 
 ### Added
 

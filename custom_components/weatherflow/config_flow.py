@@ -18,9 +18,11 @@ from pyweatherflowrest import (
 from pyweatherflowrest.data import StationDescription
 
 from .const import (
+    CONF_FORECAST_HOURS,
     CONF_INTERVAL_FORECAST,
     CONF_INTERVAL_OBSERVATION,
     CONF_STATION_ID,
+    DEFAULT_FORECAST_HOURS,
     DEFAULT_FORECAST_INTERVAL,
     DEFAULT_OBSERVATION_INTERVAL,
     DOMAIN,
@@ -88,8 +90,9 @@ class WeatherFlowFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_API_TOKEN: user_input[CONF_API_TOKEN],
             },
             options={
-                CONF_INTERVAL_OBSERVATION: 2,
-                CONF_INTERVAL_FORECAST: 30,
+                CONF_FORECAST_HOURS: DEFAULT_FORECAST_HOURS,
+                CONF_INTERVAL_OBSERVATION: DEFAULT_OBSERVATION_INTERVAL,
+                CONF_INTERVAL_FORECAST: DEFAULT_FORECAST_INTERVAL,
             },
         )
 
@@ -129,6 +132,12 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                             CONF_INTERVAL_OBSERVATION, DEFAULT_OBSERVATION_INTERVAL
                         ),
                     ): vol.All(vol.Coerce(int), vol.Range(min=1, max=30)),
+                    vol.Optional(
+                        CONF_FORECAST_HOURS,
+                        default=self.config_entry.options.get(
+                            CONF_FORECAST_HOURS, DEFAULT_FORECAST_HOURS
+                        ),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=24, max=240)),
                     vol.Optional(
                         CONF_INTERVAL_FORECAST,
                         default=self.config_entry.options.get(

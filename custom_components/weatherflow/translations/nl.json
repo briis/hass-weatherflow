@@ -25,6 +25,7 @@
             "init": {
                 "data": {
                     "interval_observation": "Interval in minuten tussen sensor updates (Standaard 2 min)",
+                    "forecast_hours": "Number of hours for the Hour based forecast (Default 48 hours)",
                     "interval_forecast": "Interval in minuten tussen de weersvoorspelling updates (Standaard 30 min)"
                 }
             }

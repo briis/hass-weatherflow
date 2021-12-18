@@ -25,6 +25,7 @@
             "init": {
                 "data": {
                     "interval_observation": "Interval in minutes between Sensor Updates (Default 2 min)",
+                    "forecast_hours": "Number of hours for the Hour based forecast (Default 48 hours)",
                     "interval_forecast": "Interval in minutes between Forecast updates (Default 30 min)"
                 }
             }

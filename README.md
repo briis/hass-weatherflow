@@ -1,5 +1,5 @@
 # WeatherFlow Weather for Home Assistant
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/briis/hass-weatherflow?style=flat-square) [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/smartweather-get-local-weather-data-combined-with-ai-powered-forecast/105151)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/briis/hass-weatherflow?style=flat-square) [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/custom-components/hacs) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/smartweather-get-local-weather-data-combined-with-ai-powered-forecast/105151)
 
 The WeatherFlow integration adds support for retreiving weather data from a Personal Weatherstation manufactured by [WeatherFlow](https://weatherflow.com/tempest-weather-system/) using a [REST API](https://weatherflow.github.io/Tempest/api/swagger/).
 
@@ -31,13 +31,10 @@ There is currently support for the following device types within Home Assistant:
 ## Installation
 
 ### HACS installation
-This Integration is not part of the default HACS store yet, but you can add it as a Custom repository in HACS by doing the following:
 
-1. Go to HACS in your HA installation, and click on Integrations
-2. Click the three vertical dots in the upper right corner, and select Custom repositories
-3. Add https://github.com/briis/hass-weatherflow and select Integration as Category, and then click Add
+This Integration is part of the default HACS store. Search for *weatherflow weather* under *Integrations* and install from there. After the installation of the files you must restart Home Assistant, or else you will not be able to add WeatherFlow Weather from the Integration Page.
 
-You should now be able to find this Integration in HACS. (Most times you need to do a Hard Refresh of the browser before it shows up)
+If you are not familiar with HACS, or haven't installed it, I would recommend to [look through the HACS documentation](https://hacs.xyz/), before continuing. Even though you can install the Integration manually, I would recommend using HACS, as you would always be reminded when a new release is published.
 
 ### Manuel installation
 

@@ -30,11 +30,13 @@ from pyweatherflowrest.data import (
 )
 
 from .const import (
+    CONF_FORECAST_HOURS,
     CONF_INTERVAL_FORECAST,
     CONF_INTERVAL_OBSERVATION,
     CONF_STATION_ID,
     CONFIG_OPTIONS,
     DEFAULT_BRAND,
+    DEFAULT_FORECAST_HOURS,
     DEFAULT_FORECAST_INTERVAL,
     DEFAULT_OBSERVATION_INTERVAL,
     DOMAIN,
@@ -75,6 +77,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         entry.data[CONF_STATION_ID],
         entry.data[CONF_API_TOKEN],
         units=unit_system,
+        forecast_hours=entry.options.get(CONF_FORECAST_HOURS, DEFAULT_FORECAST_HOURS),
         homeassistant=True,
         session=session,
     )

@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.17] - 2021-12-21
+
+### Fixed
+
+- Issue #18. Some times the list of devices attached to a Hub, does not contain a `device_type`, and that would make the Integration crash.
+
+
 ## [0.1.16] - 2021-12-19
 
 ### Added

@@ -93,7 +93,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         _LOGGER.error("The data returned from WeatherFlow is invalid")
         raise ConfigEntryNotReady from notreadyerror
     except NotAuthorized:
-        _LOGGER.debug("The Api Token entered is not correct")
+        _LOGGER.debug("The Api Token entered is not valid for the supplied Station Id.")
         return False
     except BadRequest as notreadyerror:
         _LOGGER.error("An unknown error occurred when retreiving data")

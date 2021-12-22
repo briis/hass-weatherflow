@@ -5,10 +5,10 @@
     "issue_tracker": "https://github.com/briis/hass-weatherflow/issues",
     "config_flow": true,
     "requirements": [
-        "pyweatherflowrest==0.1.22"
+        "pyweatherflowrest==0.1.23"
     ],
     "dependencies": [],
-    "version": "0.1.17",
+    "version": "0.1.18",
     "codeowners": [
         "@briis"
     ],

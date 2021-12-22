@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.1.18] - 2021-12-22
+
+### Changes
+
+- Implemented better error handling to avoid the the program crashing. Now reports correctly if the Personal Token is not valid for the supplied Station ID.
+
 ## [0.1.17] - 2021-12-21
 
 ### Fixed

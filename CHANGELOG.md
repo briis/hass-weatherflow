@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
-- Implemented better error handling to avoid the the program crashing. Now reports correctly if the Personal Token is not valid for the supplied Station ID.
+- Implemented better error handling to avoid the the program crashing. Due to the way WeatherFlow delivers result back from the REST call, it is not always possible to determine the exact cause of the error. Please always check that Station Id and Personal Token work together.
 
 ## [0.1.17] - 2021-12-21
 

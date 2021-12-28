@@ -3,6 +3,11 @@
 DOMAIN = "weatherflow"
 
 ATTR_DESCRIPTION = "description"
+ATTR_FORECAST_FEELS_LIKE = "feels_like"
+ATTR_FORECAST_SUNRISE = "sunrise"
+ATTR_FORECAST_SUNSET = "sunset"
+ATTR_FORECAST_WIND_GUST = "wind_gust"
+ATTR_FORECAST_UV = "uv_index"
 
 CONDITION_CLASSES = {
     "clear-night": ["clear-night"],

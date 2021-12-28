@@ -19,12 +19,22 @@ from homeassistant.components.weather import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import TEMP_CELSIUS
 from homeassistant.core import HomeAssistant
+from homeassistant.util.dt import utc_from_timestamp
+
 from pyweatherflowrest.data import (
     ForecastDailyDescription,
     ForecastHourlyDescription,
 )
 
-from .const import CONDITION_CLASSES, DOMAIN
+from .const import (
+    ATTR_FORECAST_FEELS_LIKE,
+    ATTR_FORECAST_SUNRISE,
+    ATTR_FORECAST_SUNSET,
+    ATTR_FORECAST_WIND_GUST,
+    ATTR_FORECAST_UV,
+    CONDITION_CLASSES,
+    DOMAIN,
+)
 from .entity import WeatherFlowEntity
 from .models import WeatherFlowEntryData
 
@@ -177,6 +187,8 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
                         ATTR_FORECAST_CONDITION: format_condition(item.icon),
                         ATTR_FORECAST_WIND_SPEED: item.wind_avg,
                         ATTR_FORECAST_WIND_BEARING: item.wind_direction,
+                        ATTR_FORECAST_SUNRISE: utc_from_timestamp(item.sunrise),
+                        ATTR_FORECAST_SUNSET: utc_from_timestamp(item.sunset),
                     }
                 )
             return data
@@ -194,7 +206,10 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
                     ATTR_FORECAST_PRECIPITATION_PROBABILITY: item.precip_probability,
                     ATTR_FORECAST_CONDITION: format_condition(item.icon),
                     ATTR_FORECAST_WIND_SPEED: item.wind_avg,
+                    ATTR_FORECAST_WIND_GUST: item.wind_gust,
                     ATTR_FORECAST_WIND_BEARING: item.wind_direction,
+                    ATTR_FORECAST_FEELS_LIKE: item.feels_like,
+                    ATTR_FORECAST_UV: item.uv,
                 }
             )
         return data

@@ -51,6 +51,7 @@ config_flow.py
 const.py
 entity.py
 manifest.json
+models.py
 sensor.py
 weather.py
 translation (Directory with all files)

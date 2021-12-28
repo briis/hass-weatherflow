@@ -1,6 +1,23 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] - Unreleased
+
+After a lot of testing I believe we are now at a point where this module will be called 1.0.0 as it is stable and delivers as expected.
+
+### Added
+
+- The Hourly Forecast has the following new Attributes:
+  - `wind_gust`
+  - `uv_index`
+  - `Feels_like`
+- The Daily Forecast has the following new Attributes:
+  - `sunrise`
+  - `sunset`
+- New sensor called `freezing_line`. It holds the altitude above sea level where snow is possible in meters or feet, depending on unit system. Thanks to @GlennGoddard for the formula.
+- New sensor `cloud_base`. It holds the cloud height altitude above sea level in meters or feet, depending on unit system. Thanks to @GlennGoddard for the formula.
+
+
 ## [0.1.18] - 2021-12-22
 
 ### Changes

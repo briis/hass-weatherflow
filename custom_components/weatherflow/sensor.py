@@ -514,6 +514,22 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         unit_type="none",
         tempest_sensor=None,
     ),
+    WeatherFlowSensorEntityDescription(
+        key="freezing_line",
+        name="Freezing Line",
+        icon="mdi:altimeter",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="altitude",
+        tempest_sensor=None,
+    ),
+    WeatherFlowSensorEntityDescription(
+        key="cloud_base",
+        name="Cloud Base",
+        icon="mdi:weather-cloudy",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="altitude",
+        tempest_sensor=None,
+    ),
 )
 
 

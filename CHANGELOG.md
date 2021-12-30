@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Moved all shared attributes to the common entity definitions
 - Some code cleanup and linting.
 
+
 ## [1.0.1] - 2021-12-30
 
 ### Fixed

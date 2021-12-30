@@ -576,6 +576,10 @@ async def async_setup_entry(
 class WeatherFlowSensor(WeatherFlowEntity, SensorEntity):
     """A WeatherFlow Sensor."""
 
+    # pylint: disable=too-many-instance-attributes
+    # pylint: disable=too-many-arguments
+    # Eight is reasonable in this case.
+
     def __init__(
         self,
         weatherflowapi,

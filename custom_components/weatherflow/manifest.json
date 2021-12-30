@@ -5,7 +5,7 @@
     "issue_tracker": "https://github.com/briis/hass-weatherflow/issues",
     "config_flow": true,
     "requirements": [
-        "pyweatherflowrest==1.0.2"
+        "pyweatherflowrest==1.0.3"
     ],
     "dependencies": [],
     "version": "1.0.1",

@@ -120,7 +120,6 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
         self._attr_available = self.forecast_coordinator.last_update_success
         self.daily_forecast = self.entity_description.key in _WEATHER_DAILY
         self._is_metric = is_metric
-        self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
 
     @property
     def condition(self):

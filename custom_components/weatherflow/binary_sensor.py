@@ -87,7 +87,6 @@ class WeatherFlowBinarySensor(WeatherFlowEntity, BinarySensorEntity):
             description,
             entries,
         )
-        self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
 
     @property
     def is_on(self):

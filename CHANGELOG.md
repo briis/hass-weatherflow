@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- *Feels Like* forecast temperature had wrong value when displayed with Imperial Units.
+- Issue [#22](https://github.com/briis/hass-weatherflow/issues/22) *Feels Like* forecast temperature had wrong value when displayed with Imperial Units.
 
 ## [1.0.0] - 2021-12-29
 

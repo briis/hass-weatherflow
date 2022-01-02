@@ -6,6 +6,14 @@ debugpy:
 http:
   server_port: 9124
 
+weather:
+  - platform: template
+    name: "My Weather Station"
+    condition_template: "{{ states('weather.weatherflow_day_based_forecast') }}"
+    temperature_template: "{{ states('sensor.weatherflow_air_temperature') | float }}"
+    humidity_template: "{{ states('sensor.weatherflow_relative_humidity') | float }}"
+    forecast_template: "{{ state_attr('weather.weatherflow_day_based_forecast', 'forecast') }}"
+
 logger:
   default: warning
   logs:

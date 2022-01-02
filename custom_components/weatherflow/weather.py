@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+from typing import OrderedDict
 
 from homeassistant.components.weather import (
     ATTR_FORECAST_CONDITION,
@@ -172,36 +173,35 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
         return getattr(self.coordinator.data, "visibility")
 
     @property
-    def forecast(self):
+    def forecast(self) -> list[Forecast] | None:
         """Return the forecast array."""
-        data: Forecast = []
+        ha_forecast_day: list[Forecast] = []
         if self.daily_forecast:
             forecast_data_daily: ForecastDailyDescription = getattr(
                 self.forecast_coordinator.data, "forecast_daily"
             )
             for item in forecast_data_daily:
-                data.append(
-                    {
-                        ATTR_FORECAST_TIME: item.utc_time,
-                        ATTR_FORECAST_TEMP: item.air_temp_high,
-                        ATTR_FORECAST_TEMP_LOW: item.air_temp_low,
-                        ATTR_FORECAST_PRECIPITATION: item.precip,
-                        ATTR_FORECAST_PRECIPITATION_PROBABILITY: item.precip_probability,
-                        ATTR_FORECAST_CONDITION: format_condition(item.icon),
-                        ATTR_FORECAST_WIND_SPEED: item.wind_avg,
-                        ATTR_FORECAST_WIND_BEARING: item.wind_direction,
-                        ATTR_FORECAST_SUNRISE: utc_from_timestamp(item.sunrise),
-                        ATTR_FORECAST_SUNSET: utc_from_timestamp(item.sunset),
-                    }
-                )
-            return data
+                ha_item = {
+                    ATTR_FORECAST_CONDITION: format_condition(item.icon),
+                    ATTR_FORECAST_PRECIPITATION: item.precip,
+                    ATTR_FORECAST_PRECIPITATION_PROBABILITY: item.precip_probability,
+                    ATTR_FORECAST_TEMP: item.air_temp_high,
+                    ATTR_FORECAST_TEMP_LOW: item.air_temp_low,
+                    ATTR_FORECAST_TIME: item.utc_time,
+                    ATTR_FORECAST_WIND_BEARING: item.wind_direction,
+                    ATTR_FORECAST_WIND_SPEED: item.wind_avg,
+                    # ATTR_FORECAST_SUNRISE: utc_from_timestamp(item.sunrise),
+                    # ATTR_FORECAST_SUNSET: utc_from_timestamp(item.sunset),
+                }
+                ha_forecast_day.append(ha_item)
+            return ha_forecast_day
 
-        data: Forecast = []
+        ha_forecast_hour: list[Forecast] = []
         forecast_data_hourly: ForecastHourlyDescription = getattr(
             self.forecast_coordinator.data, "forecast_hourly"
         )
         for item in forecast_data_hourly:
-            data.append(
+            ha_forecast_hour.append(
                 {
                     ATTR_FORECAST_TIME: item.utc_time,
                     ATTR_FORECAST_TEMP: item.air_temperature,
@@ -215,4 +215,4 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
                     ATTR_FORECAST_UV: item.uv,
                 }
             )
-        return data
+        return ha_forecast_hour

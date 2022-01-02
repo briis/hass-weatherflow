@@ -1,6 +1,19 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2022-01-02
+
+### Fixed
+
+- The format of the forecast items could not work with the *weather template*. This was caused by the `datetime` attribute not being a string but a DateTime object.
+
+### Changed
+
+- Moved all shared attributes to the common entity definitions
+- Some code cleanup and linting.
+- Removed `sunrise` and `sunset` attributes from the daily forecast. Use the `sun.sun` component instead.
+
+
 ## [1.0.1] - 2021-12-30
 
 ### Fixed

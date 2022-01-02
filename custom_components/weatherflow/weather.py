@@ -19,7 +19,6 @@ from homeassistant.components.weather import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import TEMP_CELSIUS
 from homeassistant.core import HomeAssistant
-from homeassistant.util.dt import utc_from_timestamp
 
 from pyweatherflowrest.data import (
     ForecastDailyDescription,
@@ -28,8 +27,6 @@ from pyweatherflowrest.data import (
 
 from .const import (
     ATTR_FORECAST_FEELS_LIKE,
-    ATTR_FORECAST_SUNRISE,
-    ATTR_FORECAST_SUNSET,
     ATTR_FORECAST_WIND_GUST,
     ATTR_FORECAST_UV,
     CONDITION_CLASSES,
@@ -98,6 +95,10 @@ async def async_setup_entry(
 class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
     """A WeatherFlow Weather Entity."""
 
+    # pylint: disable=too-many-instance-attributes
+    # pylint: disable=too-many-arguments
+    # Eight is reasonable in this case.
+
     def __init__(
         self,
         weatherflowapi,
@@ -120,7 +121,6 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
         self._attr_available = self.forecast_coordinator.last_update_success
         self.daily_forecast = self.entity_description.key in _WEATHER_DAILY
         self._is_metric = is_metric
-        self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
 
     @property
     def condition(self):
@@ -169,36 +169,33 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
         return getattr(self.coordinator.data, "visibility")
 
     @property
-    def forecast(self):
+    def forecast(self) -> list[Forecast] | None:
         """Return the forecast array."""
-        data: Forecast = []
+        ha_forecast_day: list[Forecast] = []
         if self.daily_forecast:
             forecast_data_daily: ForecastDailyDescription = getattr(
                 self.forecast_coordinator.data, "forecast_daily"
             )
             for item in forecast_data_daily:
-                data.append(
-                    {
-                        ATTR_FORECAST_TIME: item.utc_time,
-                        ATTR_FORECAST_TEMP: item.air_temp_high,
-                        ATTR_FORECAST_TEMP_LOW: item.air_temp_low,
-                        ATTR_FORECAST_PRECIPITATION: item.precip,
-                        ATTR_FORECAST_PRECIPITATION_PROBABILITY: item.precip_probability,
-                        ATTR_FORECAST_CONDITION: format_condition(item.icon),
-                        ATTR_FORECAST_WIND_SPEED: item.wind_avg,
-                        ATTR_FORECAST_WIND_BEARING: item.wind_direction,
-                        ATTR_FORECAST_SUNRISE: utc_from_timestamp(item.sunrise),
-                        ATTR_FORECAST_SUNSET: utc_from_timestamp(item.sunset),
-                    }
-                )
-            return data
+                ha_item = {
+                    ATTR_FORECAST_CONDITION: format_condition(item.icon),
+                    ATTR_FORECAST_PRECIPITATION: item.precip,
+                    ATTR_FORECAST_PRECIPITATION_PROBABILITY: item.precip_probability,
+                    ATTR_FORECAST_TEMP: item.air_temp_high,
+                    ATTR_FORECAST_TEMP_LOW: item.air_temp_low,
+                    ATTR_FORECAST_TIME: item.utc_time,
+                    ATTR_FORECAST_WIND_BEARING: item.wind_direction,
+                    ATTR_FORECAST_WIND_SPEED: item.wind_avg,
+                }
+                ha_forecast_day.append(ha_item)
+            return ha_forecast_day
 
-        data: Forecast = []
+        ha_forecast_hour: list[Forecast] = []
         forecast_data_hourly: ForecastHourlyDescription = getattr(
             self.forecast_coordinator.data, "forecast_hourly"
         )
         for item in forecast_data_hourly:
-            data.append(
+            ha_forecast_hour.append(
                 {
                     ATTR_FORECAST_TIME: item.utc_time,
                     ATTR_FORECAST_TEMP: item.air_temperature,
@@ -212,4 +209,4 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
                     ATTR_FORECAST_UV: item.uv,
                 }
             )
-        return data
+        return ha_forecast_hour

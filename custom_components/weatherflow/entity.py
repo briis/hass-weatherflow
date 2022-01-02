@@ -19,6 +19,10 @@ _LOGGER = logging.getLogger(__name__)
 class WeatherFlowEntity(Entity):
     """Base class for unifi protect entities."""
 
+    # pylint: disable=too-many-instance-attributes
+    # pylint: disable=too-many-arguments
+    # Seven is reasonable in this case.
+
     def __init__(
         self,
         weatherflowapi,
@@ -41,6 +45,7 @@ class WeatherFlowEntity(Entity):
         self.entry: ConfigEntry = entries
         self._attr_available = self.coordinator.last_update_success
         self._attr_unique_id = f"{description.key}_{self.station_data.key}"
+        self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
         self._attr_device_info = DeviceInfo(
             manufacturer=DEFAULT_BRAND,
             via_device=(DOMAIN, self.entry.unique_id),

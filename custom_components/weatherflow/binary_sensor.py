@@ -69,6 +69,10 @@ async def async_setup_entry(
 class WeatherFlowBinarySensor(WeatherFlowEntity, BinarySensorEntity):
     """A WeatherFlow Binary Sensor."""
 
+    # pylint: disable=too-many-instance-attributes
+    # pylint: disable=too-many-arguments
+    # Seven is reasonable in this case.
+
     def __init__(
         self,
         weatherflowapi,
@@ -87,7 +91,6 @@ class WeatherFlowBinarySensor(WeatherFlowEntity, BinarySensorEntity):
             description,
             entries,
         )
-        self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
 
     @property
     def is_on(self):

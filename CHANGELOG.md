@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Moved all shared attributes to the common entity definitions
 - Some code cleanup and linting.
 - Removed `sunrise` and `sunset` attributes from the daily forecast. Use the `sun.sun` component instead.
+- Issue [#23](https://github.com/briis/hass-weatherflow/issues/23) Changed error description when we could not retrieve data from WeatherFlow.
 
 
 ## [1.0.1] - 2021-12-30

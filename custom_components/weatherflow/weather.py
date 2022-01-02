@@ -29,8 +29,6 @@ from pyweatherflowrest.data import (
 
 from .const import (
     ATTR_FORECAST_FEELS_LIKE,
-    ATTR_FORECAST_SUNRISE,
-    ATTR_FORECAST_SUNSET,
     ATTR_FORECAST_WIND_GUST,
     ATTR_FORECAST_UV,
     CONDITION_CLASSES,
@@ -190,8 +188,6 @@ class WeatherFlowWeatherEntity(WeatherFlowEntity, WeatherEntity):
                     ATTR_FORECAST_TIME: item.utc_time,
                     ATTR_FORECAST_WIND_BEARING: item.wind_direction,
                     ATTR_FORECAST_WIND_SPEED: item.wind_avg,
-                    # ATTR_FORECAST_SUNRISE: utc_from_timestamp(item.sunrise),
-                    # ATTR_FORECAST_SUNSET: utc_from_timestamp(item.sunset),
                 }
                 ha_forecast_day.append(ha_item)
             return ha_forecast_day

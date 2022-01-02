@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import logging
-from typing import OrderedDict
 
 from homeassistant.components.weather import (
     ATTR_FORECAST_CONDITION,
@@ -20,7 +19,6 @@ from homeassistant.components.weather import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import TEMP_CELSIUS
 from homeassistant.core import HomeAssistant
-from homeassistant.util.dt import utc_from_timestamp
 
 from pyweatherflowrest.data import (
     ForecastDailyDescription,

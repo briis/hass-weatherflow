@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2022-01-27
+
+### Fixed
+- In rare occasions the forecast icon is not present in data supplied from WeatherFlow. Will now be set to Cloudy as default.
+
+
 ## [1.0.2] - 2022-01-02
 
 ### Fixed

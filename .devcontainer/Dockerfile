@@ -6,5 +6,5 @@ RUN apt update \
     && cd /opt \
     && git clone --depth=1 -b dev https://github.com/home-assistant/core.git hass \
     && python3 -m pip --disable-pip-version-check install --upgrade ./hass \
-    && python3 -m pip install flake8 \
+    && python3 -m pip install flake8 pyweatherflowrest \
     && ln -s /workspaces/hass-weatherflow/custom_components/weatherflow /opt/hass/homeassistant/components/weatherflow

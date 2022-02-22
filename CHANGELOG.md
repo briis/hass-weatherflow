@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.4] - 2022-02-22
+
+### Added
+
+- Added czech translation. Thank you to @kocour
+
 ## [1.0.3] - 2022-01-27
 
 ### Fixed

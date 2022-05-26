@@ -1,9 +1,4 @@
 {
     "name": "WeatherFlow Integration",
-    "domains": [
-        "binary_sensor",
-        "sensor",
-        "weather"
-    ],
     "homeassistant": "2021.11.0"
 }

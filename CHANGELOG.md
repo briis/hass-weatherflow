@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.6] - NOT RELEASED
+
+### Fixed
+
+- Fixing `is overriding deprecated methods on an instance of WeatherEntity` message that will start showing up in the log.
+
+
 ## [1.0.5] - 2022-05-26
 
 ### Fixed

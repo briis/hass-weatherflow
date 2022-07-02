@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [1.0.6] - NOT RELEASED
+## [1.0.6] - 2022-07-02
+
+You must be running Home Assistant 2022.7.0 nefore applying this update.
 
 ### Fixed
 

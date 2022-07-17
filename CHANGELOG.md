@@ -1,6 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.7] - NOT RELEASED
+
+### Added
+
+- German translation for Config Flow and Sensors. Thanks to @maccowley.
+
+### Changed
+
+- Updated README file. Fixed a few typos. Thank you to @notmayo.
+
+
 ## [1.0.6] - 2022-07-02
 
 **You must be running Home Assistant 2022.7.0 before applying this update.**

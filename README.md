@@ -1,12 +1,12 @@
 # WeatherFlow Weather for Home Assistant
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/briis/hass-weatherflow?style=flat-square) [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/weatherflow-weather/368627)
 
-The WeatherFlow integration adds support for retreiving weather data from a Personal Weatherstation manufactured by [WeatherFlow](https://weatherflow.com/tempest-weather-system/) using a [REST API](https://weatherflow.github.io/Tempest/api/swagger/).
+The WeatherFlow integration adds support for retrieving weather data from a Personal Weatherstation manufactured by [WeatherFlow](https://weatherflow.com/tempest-weather-system/) using a [REST API](https://weatherflow.github.io/Tempest/api/swagger/).
 
 There is currently support for the following device types within Home Assistant:
 
 * Weather
-  * Two Weather entities will be created per station. One showing an hour based forecast and one showing a day based forecast.
+  * Two Weather entities will be created per station. One showing an hour-based forecast and one showing a day based forecast.
 * Sensor
   * A whole range of individual sensors will be available. for a complete list of the sensors, see the list below.
 * Binary Sensor
@@ -16,7 +16,7 @@ There is currently support for the following device types within Home Assistant:
 
 1. [Installation](#installation)
     * [HACS Installation](#hacs-installation)
-    * [Manuel Installation](#manuel-installation)
+    * [Manual Installation](#manual-installation)
 2. [Configuration](#configuration)
     * [Token for WeatherFlow](#token-for-weatherflow)
     * [Station ID](#station-id)
@@ -32,11 +32,11 @@ There is currently support for the following device types within Home Assistant:
 
 ### HACS installation
 
-This Integration is part of the default HACS store. Search for *weatherflow weather* under *Integrations* and install from there. After the installation of the files you must restart Home Assistant, or else you will not be able to add WeatherFlow Weather from the Integration Page.
+This Integration is part of the default HACS store. Search for *weatherflow weather* under *Integrations* and install from there. After the installation of the files, you must restart Home Assistant, or else you will not be able to add WeatherFlow Weather from the Integration Page.
 
 If you are not familiar with HACS, or haven't installed it, I would recommend to [look through the HACS documentation](https://hacs.xyz/), before continuing. Even though you can install the Integration manually, I would recommend using HACS, as you would always be reminded when a new release is published.
 
-### Manuel installation
+### Manual installation
 
 To add WeatherFlow to your installation, create this folder structure in your /config directory:
 
@@ -62,7 +62,7 @@ To add WeatherFlow Weather to your installation, do the following:
 - Go to *Configuration* and *Integrations*
 - Click the `+ ADD INTEGRATION` button in the lower right corner.
 - Search for WeatherFlow and click the integration.
-- When loaded, there will be a configuration box, where you have to enter your *Station ID* and a *Personal Token* to get access to your data. When entered click *Submit* and the Integration will load all the entities.
+- When loaded, there will be a configuration box, where you must enter your *Station ID* and a *Personal Token* to get access to your data. When entered click *Submit* and the Integration will load all the entities.
 
 If you want to change the update frequencies for the realtime data and forecast data, this can be done by clicking `CONFIGURE` in the lower left corner of the WeatherFlow integration..
 
@@ -191,7 +191,7 @@ logger:
 
 There are some sensors in this integration that provides a text as state which is not covered by the core Frontend translation. Example: `sensor.weatherflow_pressure_tend`, `sensor.weatherflow_uv_description` and `sensor.weatherflow_beaufort_description`.
 
-As default the text in the Frontend is displayed in english if your language is not present in this integration, but if you want to help translate these texts in to a new language, please do the following:
+As default the text in the Frontend is displayed in english if your language is not present in this integration, but if you want to help translate these texts into a new language, please do the following:
 - Go to the `translations` directory under `custom_components/weatherflow` and copy the file `sensor.en.json` to `sensor.YOUR_LANGUAGE_CODE.json` in a directory on your computer.
 - Edit the file and change all the descriptions to your language.
 - Make a Pull request in this Github and attach your new file.

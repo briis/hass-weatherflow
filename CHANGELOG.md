@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [1.0.7] - NOT RELEASED
+## [1.0.7] - 2022-08-04
 
 ### Added
 

@@ -1,13 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [1.0.7] - NOT RELEASED YET
+## [1.0.7] - NOT RELEASED
 
-**You must minimum be running Home Assistant 2022.7.0 before applying this update.**
+### Added
 
-### Fixed
+- German translation for Config Flow and Sensors. Thanks to @maccowley.
 
-- Unit for Absolute Humidity was wrongly set to `%`. Is now changed to `g/m^3`.
+### Changed
+
+- Updated README file. Fixed a few typos. Thank you to @notmayo.
+
 
 ## [1.0.6] - 2022-07-02
 

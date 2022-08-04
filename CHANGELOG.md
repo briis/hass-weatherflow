@@ -11,6 +11,9 @@ All notable changes to this project will be documented in this file.
 
 - Updated README file. Fixed a few typos. Thank you to @notmayo.
 
+### Fixed
+
+- Unit for Absolute Humidity was wrongly set to `%`. Is now changed to `g/m^3`.
 
 ## [1.0.6] - 2022-07-02
 

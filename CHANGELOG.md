@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.8] - NOT RELEASED
+
+### Changed
+
+- Converted all DEVICE_CLASS values to `SensorDeviceClass.DEVICE_CLASS`. This includes two new Device Classes SPEED and DISTANCE, which makes it possible to change the Unit of Measurement directly from the GUI.
+
+
 ## [1.0.7] - 2022-08-04
 
 ### Added
@@ -11,6 +18,9 @@ All notable changes to this project will be documented in this file.
 
 - Updated README file. Fixed a few typos. Thank you to @notmayo.
 
+### Fixed
+
+- Unit for Absolute Humidity was wrongly set to `%`. Is now changed to `g/m^3`.
 
 ## [1.0.6] - 2022-07-02
 

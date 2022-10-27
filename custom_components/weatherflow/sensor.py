@@ -13,7 +13,7 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     DEGREE,
-    TEMP_CELSIUS,
+    UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import StateType
@@ -51,7 +51,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="air_temperature",
         name="Air Temperature",
         device_class=SensorDeviceClass.TEMPERATURE,
-        native_unit_of_measurement=TEMP_CELSIUS,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         tempest_sensor=None,
@@ -350,7 +350,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="feels_like",
         name="Feels Like Temperature",
         device_class=SensorDeviceClass.TEMPERATURE,
-        native_unit_of_measurement=TEMP_CELSIUS,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         tempest_sensor=None,
@@ -359,7 +359,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="heat_index",
         name="Heat Index",
         device_class=SensorDeviceClass.TEMPERATURE,
-        native_unit_of_measurement=TEMP_CELSIUS,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         tempest_sensor=None,
@@ -368,7 +368,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="wind_chill",
         name="Wind Chill",
         device_class=SensorDeviceClass.TEMPERATURE,
-        native_unit_of_measurement=TEMP_CELSIUS,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         tempest_sensor=None,
@@ -377,7 +377,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="dew_point",
         name="Dewpoint",
         device_class=SensorDeviceClass.TEMPERATURE,
-        native_unit_of_measurement=TEMP_CELSIUS,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         tempest_sensor=None,
@@ -386,7 +386,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="wet_bulb_temperature",
         name="Wet Bulb Temperature",
         device_class=SensorDeviceClass.TEMPERATURE,
-        native_unit_of_measurement=TEMP_CELSIUS,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         tempest_sensor=None,

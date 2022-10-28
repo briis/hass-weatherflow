@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 
 - Converted all DEVICE_CLASS values to `SensorDeviceClass.DEVICE_CLASS`. This includes two new Device Classes SPEED and DISTANCE, which makes it possible to change the Unit of Measurement directly from the GUI.
 
+### Fixed
+
+- Fix [#47](https://github.com/briis/hass-weatherflow/issues/47) WARNING Detected integration that accesses the is_metric property of the unit system.
 
 ## [1.0.7] - 2022-08-04
 

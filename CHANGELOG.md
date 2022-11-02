@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Converted all DEVICE_CLASS values to `SensorDeviceClass.DEVICE_CLASS`. This includes two new Device Classes SPEED and DISTANCE, which makes it possible to change the Unit of Measurement directly from the GUI.
-- Bumped minimum required Home Assistant version to 2022.11.0 due to these changes
+- Bumped minimum required Home Assistant version to 2022.11.0b0 due to the changes in this release
 
 ### Fixed
 

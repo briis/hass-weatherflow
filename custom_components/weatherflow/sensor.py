@@ -326,6 +326,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="lightning_strike_last_distance",
         name="Last Lightning Strike Distance",
         icon="mdi:map-marker-distance",
+        device_class=SensorDeviceClass.DISTANCE,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="distance",
         tempest_sensor=None,

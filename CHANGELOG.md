@@ -1,6 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.9] - NOT RELEASED
+
+### Fixed
+
+- Fixing *invalid units* for Wind Speed Knots and km/h plus AQI.
+- Removed all deprecated device classes and implemetend `translation_key` to continue translating certain values in the UI.
+- Cleaned up the code to use the correct Device Classes based on all the new changes in 2023.1
+- Minimum required version from now on is 2023.1.x
+
 ## [1.0.8] - 2022-11-03
 
 ### Changed

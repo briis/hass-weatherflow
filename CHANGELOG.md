@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.10] - 2023-01-08
+
+- Fix issue [#54](https://github.com/briis/hass-weatherflow/issues/54) setup fails when trying to load `pyweatherflowrest`
+
+
 ## [1.0.9] - 2023-01-08
 
 **As we are changing some units due to use of proper Unit Types and Device Classes, this will introduce some warnings in the Home Assistant log. To clear those, just go to *Developer Tools* and then click *STATISTICS* in the upper menu bar, and then solve the issues for each sensor.**

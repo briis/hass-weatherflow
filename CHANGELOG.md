@@ -3,15 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.9] - 2023-01-08
 
-**As we are changing some units due to use of proper Unit Types and Device Classes, this will introduce some warnings in the Home Assistant log. To clear those, just gp to *Developer Tools* and then click *STATISTICS* in the upper menu bar, and then solve the issues for each sensor.**
+**As we are changing some units due to use of proper Unit Types and Device Classes, this will introduce some warnings in the Home Assistant log. To clear those, just go to *Developer Tools* and then click *STATISTICS* in the upper menu bar, and then solve the issues for each sensor.**
 
 Minimum required Home Assistant version for this release is **2023.1.0**
 
 ### Fixed
 
 - Fixing *invalid units* for Wind Speed Knots and km/h plus AQI.
-- Fixing issue [#53](https://github.com/briis/hass-weatherflow/issues/53), where this sensor had the wrong Device Class.
-- Removed all deprecated device classes and implemetend `translation_key` to continue translating certain values in the UI.
+- Fixing issue [#53](https://github.com/briis/hass-weatherflow/issues/53), where the Absolute Humidity sensor had the wrong Device Class.
+- Removed all deprecated device classes and implemented `translation_key` to continue translating certain values in the UI.
 - Cleaned up the code to use the correct Device Classes based on all the new changes in 2023.1
 - Minimum required version from now on is 2023.1.x
 

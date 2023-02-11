@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.13] - 2023-02-11
+
+- Fix issue [#57](https://github.com/briis/hass-weatherflow/issues/57). Units for Absolute Humidty and Air Density, now consistent with HA units
+
 ## [1.0.12] - 2023-02-04
 
 - Fix issue [#56](https://github.com/briis/hass-weatherflow/issues/56) Detected integration that called async_setup_platforms. This call has now been replaced by the proper new function.

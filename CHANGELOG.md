@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.14] - 2023-02-12
+
+- The fix for issue #57, introduced a wrong unit for Absolute Humidity. Now corrected to g/m³
+
 ## [1.0.13] - 2023-02-11
 
 - Fix issue [#57](https://github.com/briis/hass-weatherflow/issues/57). Units for Absolute Humidty and Air Density, now consistent with HA units

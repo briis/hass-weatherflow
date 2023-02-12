@@ -12,7 +12,6 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
-    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     DEGREE,
     LIGHT_LUX,
     PERCENTAGE,
@@ -28,6 +27,7 @@ from homeassistant.helpers.typing import StateType
 
 from .const import (
     ATTR_DESCRIPTION,
+    CONCENTRATION_GRAMS_PER_CUBIC_METER,
     DOMAIN,
     TRANSLATION_KEY_BEAUFORT,
     TRANSLATION_KEY_PRECIP_INTENSITY,
@@ -101,7 +101,7 @@ SENSOR_TYPES: tuple[WeatherFlowSensorEntityDescription, ...] = (
         key="absolute_humidity",
         name="Absolute Humidity",
         icon="mdi:water",
-        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        native_unit_of_measurement=CONCENTRATION_GRAMS_PER_CUBIC_METER,
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         tempest_sensor=None,

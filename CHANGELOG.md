@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.16] - NOT RELEASED
+
+- Fixing Issue [#74](https://github.com/briis/hass-weatherflow/issues/74). Adding Humidity to Hourly Forecast
+
 ## [1.0.15] - 2023-08-30
 
 - Bump `pyweatherflowrest` to V1.0.10 to clode Issue [#81](https://github.com/briis/hass-weatherflow/issues/81)

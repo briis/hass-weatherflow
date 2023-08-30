@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.15] - 2023-08-30
+
+- Bump `pyweatherflowrest` to V1.0.10 to clode Issue [#81](https://github.com/briis/hass-weatherflow/issues/81)
+
+
 ## [1.0.14] - 2023-02-12
 
 - The fix for issue #57, introduced a wrong unit for Absolute Humidity. Now corrected to g/m³

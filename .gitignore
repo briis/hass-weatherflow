@@ -173,3 +173,5 @@ config/.storage/person
 config/.storage/trace.saved_traces
 config/.storage/core.config
 config/.storage/http.auth
+config/.storage/frontend.user_data_384ef29fa27a4d81bd995de710644891
+/config/

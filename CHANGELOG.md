@@ -1,9 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [1.0.16] - NOT RELEASED
+## [1.0.16] - 2023-08-31
 
 - Fixing Issue [#74](https://github.com/briis/hass-weatherflow/issues/74). Adding Humidity to Hourly Forecast
+- New fix for Issue [#81](https://github.com/briis/hass-weatherflow/issues/81). Default fetch errors are ignored for the Hourly Forecast. This can now be toggled on and off from the Configure menu on the Integration page.
 
 ## [1.0.15] - 2023-08-30
 

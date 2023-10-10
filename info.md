@@ -1,6 +1,18 @@
 # WeatherFlow Weather for Home Assistant
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/briis/hass-weatherflow?style=flat-square) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/smartweather-get-local-weather-data-combined-with-ai-powered-forecast/105151)
 
+## ‼️ DEPRECATION WARNING
+
+As of Home Assistant 2023.10 there is now a new WeatherFlow core integration, which uses the same domain name as this integration - that means that both of these integrations cannot run at the same time. The difference between the two integrations are:
+- The `core` WeatherFlow integration uses the UDP API, making it 100% local, and independent of an internet connection.
+- This Integration uses the Rest API, which requires an Internet connection to work.
+- This integration has a lot more sensors available and also delivers a Weather Forecast
+
+Instead of just renaming the domain name of this integration, I decided to re-write it completely, with a new name and more up-to-date coding. The new integration is called [*WeatherFlow Forecast and Sensor integration for Home Assistant*](https://github.com/briis/weatherflow_forecast) and is available for testing now.
+
+**Timing**: As soon as the new Integration is accepted in the default HACS store, this integration will be removed from there, and this Integration will be archived. I do not recommend new users to install this integration but instead use the new one.
+
+## Overview
 The WeatherFlow integration adds support for retreiving weather data from a Personal Weatherstation manufactured by [WeatherFlow](https://weatherflow.com/tempest-weather-system/) using a [REST API](https://weatherflow.github.io/Tempest/api/swagger/).
 
 There is currently support for the following device types within Home Assistant:

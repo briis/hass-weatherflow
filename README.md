@@ -1,6 +1,11 @@
 # WeatherFlow Weather for Home Assistant
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/briis/hass-weatherflow?style=flat-square) [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/weatherflow-weather/368627)
 
+## UPDATE DECEMBER 2023
+
+This integration is now been Archieved, please use this integration instead, which is fully maintained and does not have any conflicts with the new core integration: [*WeatherFlow Forecast and Sensor integration for Home Assistant*](https://github.com/briis/weatherflow_forecast)
+The Integration will be removed from the default HACS store
+
 ## ‼️ DEPRECATION WARNING
 
 As of Home Assistant 2023.10 there is now a new WeatherFlow core integration, which uses the same domain name as this integration - that means that both of these integrations cannot run at the same time. The difference between the two integrations are:
